@@ -1,6 +1,6 @@
 import {BaseApiError} from '../errors';
 
-export const handleError = (error: any, req: Server.Request, res: Server.Response, next: Server.Next) => {
+export const handleError: Server.ErrorHandlerRoute = (error, req, res, next) => {
   if (error instanceof BaseApiError) {
     res.status(error.status).send(error.message);
 

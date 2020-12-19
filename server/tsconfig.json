@@ -11,15 +11,6 @@
     "typeRoots": [
       "./node_modules/@types",
       "./types"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "express": [
-        "./types/express.d.ts"
-      ],
-      "express-serve-static-core": [
-        "./types/express-serve-static-core.d.ts"
-      ]
-    }
+    ]
   }
 }

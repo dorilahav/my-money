@@ -15,7 +15,7 @@ export const JwtService = () => {
 
   const decode = (token: string) => {
     try {
-      return jwt.verify(token, secret, {issuer}) as Server.Context;
+      return jwt.verify(token, secret, {issuer}) as Server.UserContext;
     } catch (error) {
       if (error instanceof JsonWebTokenError) {
         throw new InvalidTokenError();
@@ -25,7 +25,7 @@ export const JwtService = () => {
     }
   }
 
-  const encode = (context: Server.Context) =>
+  const encode = (context: Server.UserContext) =>
     jwt.sign(context, secret, {issuer});
 
   return {
