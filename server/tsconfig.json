@@ -7,6 +7,9 @@
     "esModuleInterop": true,
     "module": "es6",
     "moduleResolution": "node",
-    "removeComments": true
+    "removeComments": true,
+    "typeRoots": [
+      "./types"
+    ]
   }
 }
