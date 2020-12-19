@@ -52,8 +52,9 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     alias: {
-      Components: path.resolve(__dirname, 'src', 'app', 'components'),
-      Hooks: path.resolve(__dirname, 'src', 'app', 'hooks')
+      '@components': path.resolve(__dirname, 'src', 'app', 'components'),
+      '@hooks': path.resolve(__dirname, 'src', 'app', 'hooks'),
+      '@theme': path.resolve(__dirname, 'src', 'app', 'theme')
     }
   },
   target: 'web',

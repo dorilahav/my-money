@@ -8,6 +8,18 @@
     "jsx": "react",
     "module": "es6",
     "moduleResolution": "node",
-    "removeComments": true
+    "removeComments": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components": [
+        "./src/app/components"
+      ],
+      "@hooks": [
+        "./src/app/hooks"
+      ],
+      "@theme": [
+        "./src/app/theme"
+      ]
+    }
   }
 }
