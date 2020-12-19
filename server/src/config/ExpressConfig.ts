@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import {AuthRouter, ApiRouter} from '../routes';
+import {handleError} from '../middlewares';
 
 const configureMiddlewares = (app: express.Express) => {
   app.use(express.urlencoded({extended: true}));
@@ -21,6 +22,10 @@ const configureStaticFiles = (app: express.Express) => {
   });
 }
 
+const configureErrorHandler = (app: express.Express) => {
+  app.use(handleError);
+}
+
 export const startServer = (app: express.Express, port: number) =>
   new Promise(resolve => {
     app.listen(port, () => {
@@ -38,6 +43,8 @@ export const configureExpress = (environment: string) => {
   if (environment === 'production') {
     configureStaticFiles(app);
   }
+
+  configureErrorHandler(app);
 
   return startServer(app, port);
 }
