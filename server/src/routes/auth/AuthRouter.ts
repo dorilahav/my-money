@@ -1,7 +1,7 @@
-import {Router} from 'express';
+import {AsyncRouter} from 'express-async-router';
 
 export const AuthRouter = () => {
-  const router = Router();
+  const router = AsyncRouter();
 
   return router;
 }

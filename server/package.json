@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "express-async-router": "^0.1.15",
     "mongoose": "^5.11.8"
   }
 }
