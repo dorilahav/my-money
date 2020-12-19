@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import {AuthRouter, ApiRouter} from '../routes';
-import {handleError} from '../middlewares';
+import {authorize, handleError} from '../middlewares';
 
 const configureMiddlewares = (app: express.Express) => {
   app.use(express.urlencoded({extended: true}));
@@ -10,7 +10,7 @@ const configureMiddlewares = (app: express.Express) => {
 
 const configureRoutes = (app: express.Express) => {
   app.use('/auth', AuthRouter());
-  app.use('/api', ApiRouter());
+  app.use('/api', authorize, ApiRouter());
 }
 
 const configureStaticFiles = (app: express.Express) => {
