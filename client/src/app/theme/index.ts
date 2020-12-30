@@ -1,1 +1,0 @@
-export {ThemeProvider, useTheme, withTheme} from './Theme';

@@ -1,14 +1,17 @@
-import React, {FC} from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
-import {ThemeProvider} from '@theme';
-import {Routes} from './routes';
+import React, {FC, lazy, Suspense} from 'react';
+
+import {useAuth} from '@hooks';
+import {FullScreenLoading} from '@components';
+
+const AuthenticatedApp = lazy(() => import('./authenticated'));
+const UnauthenticatedApp = lazy(() => import('./unauthenticated'));
 
 export const App: FC = () => {
+  const {user} = useAuth();
+
   return (
-    <ThemeProvider>
-      <Router>
-        <Routes />
-      </Router>
-    </ThemeProvider>
+    <Suspense fallback={<FullScreenLoading/>}>
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </Suspense>
   );
 };

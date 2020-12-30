@@ -1,24 +1,27 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "module": "ESNext",
+    "target": "ES6",
     "allowJs": true,
     "noEmit": true,
     "strict": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "module": "es6",
     "moduleResolution": "node",
     "removeComments": true,
     "baseUrl": ".",
     "paths": {
       "@components": [
-        "./src/app/components"
+        "./src/components"
       ],
       "@hooks": [
-        "./src/app/hooks"
+        "./src/hooks"
       ],
-      "@theme": [
-        "./src/app/theme"
+      "@services": [
+        "./src/services"
+      ],
+      "@common": [
+        "../common"
       ]
     }
   }

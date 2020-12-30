@@ -1,7 +1,6 @@
 const path = require('path');
 
 const HtmlPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -52,9 +51,10 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     alias: {
-      '@components': path.resolve(__dirname, 'src', 'app', 'components'),
-      '@hooks': path.resolve(__dirname, 'src', 'app', 'hooks'),
-      '@theme': path.resolve(__dirname, 'src', 'app', 'theme')
+      '@components': path.resolve(__dirname, 'src', 'components'),
+      '@hooks': path.resolve(__dirname, 'src', 'hooks'),
+      '@services': path.resolve(__dirname, 'src', 'services'),
+      '@common': path.resolve(__dirname, '..', 'common')
     }
   },
   target: 'web',
@@ -65,23 +65,5 @@ module.exports = {
     new HtmlPlugin({
       template: path.resolve(__dirname, 'src', 'index.html')
     })
-  ],
-  optimization: {
-    mangleExports: true,
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          format: {
-            comments: false,
-          },
-        },
-        extractComments: false,
-      })
-    ],
-    splitChunks: {
-      minSize: 20000,
-      maxSize: 100000
-    }
-  },
+  ]
 }
