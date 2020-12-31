@@ -1,9 +1,7 @@
 import React, {FC} from 'react';
 import {Route, Switch} from 'react-router-dom';
-
-import {IRoute} from '../Routes';
-
 import {Home} from './home';
+import {IRoute} from '../Routes';
 
 const routes: IRoute[] = [
   {

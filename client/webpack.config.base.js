@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 
 const HtmlPlugin = require('html-webpack-plugin');
+const EslintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -64,6 +66,10 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       template: path.resolve(__dirname, 'src', 'index.html')
+    }),
+    new EslintPlugin({
+      extensions: ['ts', '.tsx'],
+      fix: true
     })
   ]
 }

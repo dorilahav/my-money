@@ -1,7 +1,7 @@
-import React, {CSSProperties, forwardRef, HTMLAttributes} from 'react';
+import React, {CSSProperties, forwardRef, ForwardRefExoticComponent, HTMLAttributes} from 'react';
+import clsx from 'clsx';
 import {JssStyle} from 'jss';
 import {makeStyles} from '@hooks';
-import clsx from 'clsx';
 
 export interface LayoutProps extends HTMLAttributes<HTMLDivElement>, Pick<CSSProperties, 'justifyContent' | 'alignItems'> {
   className?: string;
@@ -23,7 +23,7 @@ const useStyles = (name: string, props: LayoutProps, defaultStyles?: JssStyle) =
   })
 })(props);
 
-export const createLayoutComponent = (name: string, defaultStyles?: JssStyle) =>
+export const createLayoutComponent = (name: string, defaultStyles?: JssStyle): ForwardRefExoticComponent<LayoutProps> =>
   forwardRef<HTMLDivElement, LayoutProps>((props, ref) => {
     const {children, className, flex, justifyContent, alignItems, fullHeight, fullWidth, ...restProps} = props;
 
