@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import {ThemeProvider} from './theme';
 import {AuthProvider} from './auth';
+import {ThemeProvider} from './theme';
 
 export const Providers: FC = ({children}) => (
   <ThemeProvider>

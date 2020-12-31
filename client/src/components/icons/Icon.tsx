@@ -1,8 +1,10 @@
-import React, {FC} from 'react';
+import * as icons from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import {makeStyles, useColor} from '@hooks';
 
-const icons = require('@fortawesome/free-solid-svg-icons');
+import React, {FC} from 'react';
+
+type Icons = Omit<typeof icons, 'fas'|'prefix'|'IconDefinition'|'IconLookup'|'IconName'|'IconPrefix'|'IconPack'>;
 
 const useStyles = makeStyles({
   icon: ({size, iconColor}) => ({
@@ -12,7 +14,7 @@ const useStyles = makeStyles({
 });
 
 export interface IconProps extends Omit<FontAwesomeIconProps, 'size' | 'color' | 'icon'> {
-  icon: keyof typeof icons;
+  icon: keyof Icons;
   size?: number;
   color?: string;
 }

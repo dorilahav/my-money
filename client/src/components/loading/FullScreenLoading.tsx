@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
 import {Loading, Row} from '@components';
+import React, {FC} from 'react';
 import {makeStyles} from '@hooks';
 
 const useStyles = makeStyles({

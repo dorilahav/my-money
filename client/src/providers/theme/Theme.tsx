@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import {ThemeProvider as JssThemeProvider} from 'react-jss';
 import {Background} from './Background';
+import {ThemeProvider as JssThemeProvider} from 'react-jss';
 
 export interface ColorWithBackground {
   main: string;

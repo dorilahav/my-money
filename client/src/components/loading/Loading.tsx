@@ -2,6 +2,6 @@ import React, {FC} from 'react';
 import {Icon} from '../icons';
 import {IconProps} from '../icons/Icon';
 
-interface LoadingProps extends Omit<IconProps, 'icon' | 'spin'> {}
+type LoadingProps = Omit<IconProps, 'icon' | 'spin'>;
 
 export const Loading: FC<LoadingProps> = (props) => <Icon icon="faCircleNotch" spin {...props}/>;

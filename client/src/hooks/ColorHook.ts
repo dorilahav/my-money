@@ -1,12 +1,11 @@
+import {Colors, ColorWithBackground} from '../providers/theme/Theme';
 import {useTheme} from './ThemeHook';
-import {ColorWithBackground} from '../providers/theme/Theme';
 
-export const useColor = (color?: string) => {
+export const useColor = (color?: string): string | undefined => {
   const theme = useTheme();
 
   if (color && color in theme.colors) {
-    // @ts-ignore
-    const themeColor: string | ColorWithBackground = theme.colors[color];
+    const themeColor: string | ColorWithBackground = theme.colors[color as keyof Colors];
 
     return typeof themeColor === 'string' ?
       themeColor :

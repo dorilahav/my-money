@@ -1,8 +1,7 @@
-import React, {FC} from 'react';
-
-import {makeStyles, useTheme} from '@hooks';
-import {Icon, Text} from '@components';
 import {Col, Row} from '../layout';
+import {Icon, Text} from '@components';
+import {makeStyles, useTheme} from '@hooks';
+import React, {FC} from 'react';
 import {ResourceService} from '../../services';
 
 const useStyles = makeStyles(theme => ({

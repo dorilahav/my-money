@@ -1,10 +1,8 @@
 import './index.css';
-
 import React, {FC} from 'react';
-import ReactDOM from 'react-dom';
-
-import {Providers} from './providers';
 import {App} from './app';
+import {Providers} from './providers';
+import ReactDOM from 'react-dom';
 
 const Index: FC = () => (
   <Providers>

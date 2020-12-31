@@ -1,7 +1,7 @@
+import {Col, Row, Sidebar} from '@components';
 import React, {FC} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {Routes} from './Routes';
-import {Col, Row, Sidebar} from '@components';
 
 const AuthenticatedApp: FC = () => (
   <BrowserRouter>

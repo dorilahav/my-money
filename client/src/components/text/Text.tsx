@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
 import {makeStyles, useColor} from '@hooks';
+import React, {FC} from 'react';
 
 type TextComponent = 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
 

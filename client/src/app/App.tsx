@@ -1,7 +1,6 @@
 import React, {FC, lazy, Suspense} from 'react';
-
-import {useAuth} from '@hooks';
 import {FullScreenLoading} from '@components';
+import {useAuth} from '@hooks';
 
 const AuthenticatedApp = lazy(() => import('./authenticated'));
 const UnauthenticatedApp = lazy(() => import('./unauthenticated'));
@@ -11,7 +10,7 @@ export const App: FC = () => {
 
   return (
     <Suspense fallback={<FullScreenLoading/>}>
-      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {user ? <AuthenticatedApp/> : <UnauthenticatedApp/>}
     </Suspense>
   );
 };
