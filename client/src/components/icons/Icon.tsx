@@ -3,6 +3,7 @@ import {FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawes
 import {makeStyles, useColor} from '@hooks';
 
 import React, {FC} from 'react';
+import clsx from 'clsx';
 
 type Icons = Omit<typeof icons, 'fas'|'prefix'|'IconDefinition'|'IconLookup'|'IconName'|'IconPrefix'|'IconPack'>;
 
@@ -20,12 +21,12 @@ export interface IconProps extends Omit<FontAwesomeIconProps, 'size' | 'color' |
 }
 
 export const Icon: FC<IconProps> = (props) => {
-  const {icon, size, color, ...restProps} = props;
+  const {icon, size, color, className, ...restProps} = props;
   const iconColor = useColor(color);
 
   const classes = useStyles({size, iconColor});
 
   return (
-    <FontAwesomeIcon className={classes.icon} icon={icons[icon]} {...restProps}/>
+    <FontAwesomeIcon className={clsx(classes.icon, className)} icon={icons[icon]} {...restProps}/>
   );
 };

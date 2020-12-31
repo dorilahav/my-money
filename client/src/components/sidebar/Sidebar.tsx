@@ -6,7 +6,7 @@ import {ResourceService} from '../../services';
 
 const useStyles = makeStyles(theme => ({
   sidebar: {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.primary.main,
     padding: '32px 12px'
   }
 }));
@@ -17,12 +17,7 @@ export const Sidebar: FC = () => {
 
   return (
     <Col className={classes.sidebar}>
-      <Row>
-        <Icon icon="faMoneyBillWave" size={50} color={theme.colors.positive.main} />
-        <Text color={theme.colors.text}>
-          {ResourceService.websiteName}
-        </Text>
-      </Row>
+
     </Col>
   );
 };

@@ -1,15 +1,13 @@
-import {Colors, ColorWithBackground} from '../providers/theme/Theme';
+import {AdvancedColor} from '../providers/theme/Theme';
 import {useTheme} from './ThemeHook';
 
-export const useColor = (color?: string): string | undefined => {
+export const useColor = (color?: string, type: keyof AdvancedColor = 'main'): string | undefined => {
   const theme = useTheme();
 
   if (color && color in theme.colors) {
-    const themeColor: string | ColorWithBackground = theme.colors[color as keyof Colors];
+    const themeColor = theme.colors[color as ThemeColorOptions];
 
-    return typeof themeColor === 'string' ?
-      themeColor :
-      themeColor.main;
+    return typeof themeColor === 'string' ? themeColor : themeColor[type];
   }
 
   return color;

@@ -2,25 +2,30 @@ import React, {FC} from 'react';
 import {Background} from './Background';
 import {ThemeProvider as JssThemeProvider} from 'react-jss';
 
-export interface ColorWithBackground {
+type KeysMatching<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[keyof T];
+
+export interface AdvancedColor {
   main: string;
-  background: string;
+  hover: string;
 }
 
-export interface Colors {
+export interface ThemeColors {
   background: string;
-  primary: string;
-  positive: ColorWithBackground;
-  negative: ColorWithBackground;
+  primary: AdvancedColor;
+  positive: AdvancedColor;
+  negative: AdvancedColor;
   natural: string;
   card: string;
-  button: string;
+  disabled: string;
   text: string;
 }
 
 declare global {
+  export type ThemeColorOptions = keyof ThemeColors;
+  export type AdvancedThemeColorOptions = KeysMatching<ThemeColors, AdvancedColor>;
+
   export interface Theme {
-    colors: Colors;
+    colors: ThemeColors;
   }
 }
 
@@ -28,18 +33,21 @@ export const ThemeProvider: FC = ({children}) => {
   const theme: Theme = {
     colors: {
       background: '#f0f4f4',
-      primary: '#1b2d4c',
+      primary: {
+        main: '#1b2d4c',
+        hover: '#394863'
+      },
       positive: {
         main: '#72be00',
-        background: '#dff2c3'
+        hover: '#dff2c3'
       },
       negative: {
         main: '#bc0000',
-        background: '#ffdddd'
+        hover: '#ffdddd'
       },
       natural: '#19a2ca',
       card: 'white',
-      button: '#d0d0d0',
+      disabled: '#d0d0d0',
       text: 'white'
     }
   }
