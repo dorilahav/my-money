@@ -2,10 +2,24 @@
   "name": "mymoney-common",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf lib && babel -d lib --extensions .ts,.js ./src && tsc",
+    "prepublishOnly": "npm run build"
   },
   "author": "Dori Lahav Waisberg",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.5",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/yup": "^0.29.11",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.2"
+  },
+  "dependencies": {
+    "yup": "^0.32.9"
+  }
 }
