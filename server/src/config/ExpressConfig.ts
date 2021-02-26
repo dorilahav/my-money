@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
-import {AuthRouter, ApiRouter} from '../routes';
-import {authorize, handleError} from '../middlewares';
+import {apiRouter} from '../api';
+import {authRouter} from '../auth';
 
 const configureMiddlewares = (app: express.Express) => {
   app.use(express.urlencoded({extended: true}));
@@ -9,8 +9,9 @@ const configureMiddlewares = (app: express.Express) => {
 }
 
 const configureRoutes = (app: express.Express) => {
-  app.use('/auth', AuthRouter());
-  app.use('/api', authorize, ApiRouter());
+  // TODO: create /auth and /api routes.
+  app.use('/api', apiRouter);
+  app.use('/auth', authRouter);
 }
 
 const configureStaticFiles = (app: express.Express) => {
@@ -23,7 +24,7 @@ const configureStaticFiles = (app: express.Express) => {
 }
 
 const configureErrorHandler = (app: express.Express) => {
-  app.use(handleError);
+  // TODO: create errorHandler middleware
 }
 
 export const startServer = (app: express.Express, port: number) =>

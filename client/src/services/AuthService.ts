@@ -1,4 +1,4 @@
-import {UserViewModel} from '@common';
+import {UserViewModel} from '../../../common/src';
 
 export const AuthService = () => {
   // TODO: implement this.

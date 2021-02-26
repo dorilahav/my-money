@@ -1,2 +1,1 @@
-export {handleError} from './ErrorMiddleware';
-export {authorize} from './authorization';
+export {validateRequestBody} from './validate-request.middleware';

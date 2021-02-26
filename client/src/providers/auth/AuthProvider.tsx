@@ -1,7 +1,7 @@
 import React, {createContext, FC, useEffect, useState} from 'react';
 import {AuthService} from '@services';
 import {FullScreenLoading} from '@components';
-import {UserViewModel} from '@common';
+import {UserViewModel} from '../../../../common/src';
 
 export interface AuthContextValue {
   login: (username: string, password: string) => Promise<void>;

@@ -9,4 +9,4 @@ configure(environment)
   .catch(error => {
     console.error('An error has occurred while trying to start the server!');
     console.error(error);
-  })
+  });

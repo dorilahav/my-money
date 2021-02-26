@@ -30,6 +30,7 @@
     "express-async-router": "^0.1.15",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
-    "mymoney-common": "^1.0.0"
+    "mymoney-common": "^1.0.0",
+    "yup": "^0.32.9"
   }
 }

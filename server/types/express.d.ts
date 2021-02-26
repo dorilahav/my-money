@@ -1,5 +1,10 @@
+interface AuthDetails {
+  userId: string;
+  profileId: string;
+}
+
 declare namespace Express {
   export interface Request {
-    context: Server.UserContext;
+    auth: AuthDetails;
   }
 }
