@@ -24,5 +24,12 @@ export interface BaseTypographyProps extends PropsWithChildren {
 }
 
 export const BaseTypography = ({children, color = 'primary', fontSize, fontWeight}: BaseTypographyProps) => (
-  <MuiTypography color={colorToMuiMap[color]} fontSize={fontSize} fontWeight={fontWeightMap[fontWeight]} lineHeight={1} children={children} />
+  <MuiTypography
+    color={colorToMuiMap[color]}
+    fontSize={fontSize}
+    fontWeight={fontWeightMap[fontWeight]}
+    lineHeight={1.2}
+    children={children}
+    pb={0.5}
+  />
 );

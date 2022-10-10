@@ -10,7 +10,7 @@
     "declaration": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "outDir": "lib"
   },
   "include": ["src"]

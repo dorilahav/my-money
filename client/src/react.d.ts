@@ -1,7 +1,7 @@
 import 'react';
 
 declare global {
-  export type PropsWithChildren = {
+  export interface PropsWithChildren {
     children: ReactNode;
-  };
+  }
 }

@@ -51,7 +51,7 @@ export const AmountTypography = ({variant = 'text', amount, positiveIsError, ...
 
   return (
     <Component {...props} color={color}>
-      {amountText}
+      ₪{amountText}
     </Component>
   );
 };

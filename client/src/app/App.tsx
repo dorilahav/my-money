@@ -1,13 +1,15 @@
-import {Text} from './components';
 import {AppLayout} from './layout';
-import {ThemeProvider} from './providers';
+import {QueryClientProvider, ThemeProvider} from './providers';
+import {Routes} from './routes';
 
 const App = () => {
   return (
     <ThemeProvider>
-      <AppLayout>
-        <Text>שלום עולם!</Text>
-      </AppLayout>
+      <QueryClientProvider>
+        <AppLayout>
+          <Routes />
+        </AppLayout>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };

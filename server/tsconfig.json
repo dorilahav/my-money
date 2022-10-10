@@ -9,7 +9,7 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "outDir": "dist"
   },
   "include": ["src"]

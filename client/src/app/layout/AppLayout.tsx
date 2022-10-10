@@ -12,7 +12,7 @@ export const AppLayout = ({children}: AppLayoutProps) => (
       <AppNavbar />
       <Box display="flex" flexDirection="column" flex={1}>
         <AppToolbar />
-        <Box>{children}</Box>
+        <Box sx={{p: 4}}>{children}</Box>
       </Box>
     </Router>
   </Box>
