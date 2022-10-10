@@ -3,7 +3,7 @@
   "bracketSpacing": false,
   "bracketSameLine": true,
   "jsxSingleQuote": false,
-  "printWidth": 120,
+  "printWidth": 150,
   "semi": true,
   "singleAttributePerLine": false,
   "singleQuote": true,

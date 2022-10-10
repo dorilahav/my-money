@@ -1,7 +1,7 @@
 import createCache from '@emotion/cache';
 import {CacheProvider} from '@emotion/react';
 
-import {ThemeProvider as MaterialThemeProvider} from '@mui/material';
+import {CssBaseline, ThemeProvider as MaterialThemeProvider} from '@mui/material';
 import {useEffect} from 'react';
 import {prefixer} from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -21,7 +21,10 @@ export const ThemeProvider = ({children}: ThemeProviderProps) => {
 
   return (
     <CacheProvider value={cacheRtl}>
-      <MaterialThemeProvider theme={theme}>{children}</MaterialThemeProvider>
+      <MaterialThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MaterialThemeProvider>
     </CacheProvider>
   );
 };

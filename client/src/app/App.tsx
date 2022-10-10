@@ -1,10 +1,13 @@
-import {Typography} from '@mui/material';
+import {Text} from './components';
+import {AppLayout} from './layout';
 import {ThemeProvider} from './providers';
 
 const App = () => {
   return (
     <ThemeProvider>
-      <Typography>שלום עולם!</Typography>
+      <AppLayout>
+        <Text>שלום עולם!</Text>
+      </AppLayout>
     </ThemeProvider>
   );
 };
