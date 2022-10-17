@@ -1,1 +1,1 @@
-export {AccountViewModel} from './account';
+export {AccountViewModel, NewAccountViewModel} from './account';

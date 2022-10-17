@@ -1,9 +1,10 @@
 import {AsyncRouter} from 'express-async-router';
 
-import {getAll} from './account-controller';
+import {create, getAll} from './account-controller';
 
 const accountRouter = AsyncRouter();
 
 accountRouter.get('/', getAll);
+accountRouter.post('/', /* Add validation */ create);
 
 export default accountRouter;

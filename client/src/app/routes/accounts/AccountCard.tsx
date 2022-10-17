@@ -8,7 +8,7 @@ interface AccountCardProps {
 }
 
 export const AccountCard = ({account}: AccountCardProps) => {
-  const {name} = account;
+  const {name, balance, updatedAt} = account;
 
   return (
     <Box
@@ -20,9 +20,9 @@ export const AccountCard = ({account}: AccountCardProps) => {
       }}>
       <Box display="flex" justifyContent="space-between">
         <Title>{name}</Title>
-        <AmountTypography variant="text" amount={16000} />
+        <AmountTypography variant="text" amount={balance} />
       </Box>
-      <Caption>Last Update: 00/00/0000</Caption>
+      <Caption>Last Update: {updatedAt}</Caption>
     </Box>
   );
 };

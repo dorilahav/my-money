@@ -8,8 +8,6 @@ interface CreateAccountButtonProps {
 }
 
 export const CreateAccountButton = ({onClick}: CreateAccountButtonProps) => {
-  const name = 'dori';
-
   return (
     <Box
       component={Button}
@@ -17,6 +15,7 @@ export const CreateAccountButton = ({onClick}: CreateAccountButtonProps) => {
       justifyContent="center"
       alignItems="center"
       fullWidth
+      onClick={onClick}
       sx={{
         backgroundColor: 'action.disabled',
         borderRadius: theme => theme.shape.borderRadius,

@@ -1,1 +1,1 @@
-export * as accountsApi from './accounts-api';
+export * from './accounts';
