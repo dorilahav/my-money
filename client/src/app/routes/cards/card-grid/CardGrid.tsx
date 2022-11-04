@@ -1,7 +1,6 @@
-import {Grid} from '@mui/material';
 import {CardViewModel} from '@my-money/common';
+import {EntityGrid} from '../../../components';
 
-import {PlusCardIcon} from '../../../components';
 import {CardCard} from './CardCard';
 
 interface CardGridProps {
@@ -10,14 +9,5 @@ interface CardGridProps {
 }
 
 export const CardGrid = ({cards, onCreateClick}: CardGridProps) => (
-  <Grid container spacing={4}>
-    {cards.map(card => (
-      <Grid key={card.id} item xs={12} md={6} lg={3}>
-        <CardCard card={card} />
-      </Grid>
-    ))}
-    <Grid item xs={12} md={6} lg={3}>
-      <PlusCardIcon onClick={onCreateClick} />
-    </Grid>
-  </Grid>
+  <EntityGrid entities={cards} entityComponent={CardCard} onCreateClick={onCreateClick} />
 );

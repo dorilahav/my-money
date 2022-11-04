@@ -8,7 +8,7 @@ interface PlusCardButtonProps {
   onClick: () => any;
 }
 
-export const PlusCardIcon = ({onClick}: PlusCardButtonProps) => (
+export const PlusCardButton = ({onClick}: PlusCardButtonProps) => (
   <Box
     component={Button}
     display="flex"

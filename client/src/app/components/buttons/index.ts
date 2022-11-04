@@ -1,1 +1,1 @@
-export {PlusCardIcon} from './PlusCardButton';
+export {PlusCardButton} from './PlusCardButton';
