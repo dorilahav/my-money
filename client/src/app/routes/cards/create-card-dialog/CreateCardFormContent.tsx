@@ -5,11 +5,11 @@ import {SelectField, TextField} from '../../../components';
 import {useResetWrappingFormOnUnmount, useWrappingForm} from '../../../hooks';
 import {CardChargingInfoFormContent} from './CardChargingInfoFormContent';
 
-interface CreateDialogFormContentProps {
+interface CreateCardFormContentProps {
   accounts: AccountViewModel[];
 }
 
-export const CreateDialogFormContent = ({accounts}: CreateDialogFormContentProps) => {
+export const CreateCardFormContent = ({accounts}: CreateCardFormContentProps) => {
   const {control} = useWrappingForm<NewCardViewModel>();
   const accountOptions = useMemo(() => accounts.map(({id, name}) => ({value: id, label: name})), [accounts]);
 

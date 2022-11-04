@@ -1,12 +1,12 @@
 import {useAllAccounts, useCreateAccount} from '../../api';
 import {useToggle} from '../../hooks';
 import {AccountGrid} from './AccountGrid';
-import {CreateAccountDialog} from './CreateAccountDialog';
+import {CreateAccountDialog} from './create-account-dialog';
 
 export const AccountsPage = () => {
   const [isCreateAccountDialogOpen, openCreateAccountDialog, closeCreateAccountDialog] = useToggle();
   const {isLoading: isLoadingAccounts, error, data: accounts} = useAllAccounts();
-  const {mutate: createAccount, isLoading: isCreatingAccount} = useCreateAccount();
+  const {mutate: createAccount} = useCreateAccount();
 
   if (isLoadingAccounts) {
     return <div>Loading accounts...</div>;
@@ -19,12 +19,7 @@ export const AccountsPage = () => {
   return (
     <>
       <AccountGrid accounts={accounts} onCreateClick={openCreateAccountDialog} />
-      <CreateAccountDialog
-        isOpen={isCreateAccountDialogOpen}
-        isDisabled={isCreatingAccount}
-        onClose={closeCreateAccountDialog}
-        onCreate={createAccount}
-      />
+      <CreateAccountDialog isOpen={isCreateAccountDialogOpen} onClose={closeCreateAccountDialog} onCreate={createAccount} />
     </>
   );
 };

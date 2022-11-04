@@ -2,7 +2,7 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/ma
 import {AccountViewModel, CardType, newCardValidationSchema, NewCardViewModel} from '@my-money/common';
 import {Form} from '../../../components';
 import {useForm} from '../../../hooks';
-import {CreateDialogFormContent} from './CreateCardFormContent';
+import {CreateCardFormContent} from './CreateCardFormContent';
 
 interface CreateCardDialogProps {
   isOpen: boolean;
@@ -30,7 +30,7 @@ export const CreateCardDialog = ({isOpen, accounts, onClose, onCreate}: CreateCa
       <DialogTitle>יצירת כרטיס</DialogTitle>
       <Form form={newCardForm} onSubmit={createCard}>
         <DialogContent>
-          <CreateDialogFormContent accounts={accounts} />
+          <CreateCardFormContent accounts={accounts} />
         </DialogContent>
         <DialogActions>
           <Button type="submit" color="primary" disabled={newCardForm.isSubmitting}>
