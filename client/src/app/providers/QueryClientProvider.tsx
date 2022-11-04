@@ -2,7 +2,14 @@ import {QueryClient, QueryClientProvider as ReactQueryClientProvider} from '@tan
 
 interface QueryClientProviderProps extends PropsWithChildren {}
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60000,
+      refetchOnReconnect: 'always'
+    }
+  }
+});
 
 export const QueryClientProvider = ({children}: QueryClientProviderProps) => {
   return <ReactQueryClientProvider client={queryClient}>{children}</ReactQueryClientProvider>;

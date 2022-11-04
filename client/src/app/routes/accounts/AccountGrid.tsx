@@ -1,8 +1,8 @@
 import {Grid} from '@mui/material';
 import {AccountViewModel} from '@my-money/common';
 
+import {PlusCardIcon} from '../../components';
 import {AccountCard} from './AccountCard';
-import {CreateAccountButton} from './CreateAccountButton';
 
 interface AccountGridProps {
   accounts: AccountViewModel[];
@@ -17,7 +17,7 @@ export const AccountGrid = ({accounts, onCreateClick}: AccountGridProps) => (
       </Grid>
     ))}
     <Grid item xs={12} md={6} lg={3}>
-      <CreateAccountButton onClick={onCreateClick} />
+      <PlusCardIcon onClick={onCreateClick} />
     </Grid>
   </Grid>
 );

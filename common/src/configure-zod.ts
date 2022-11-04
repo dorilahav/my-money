@@ -61,6 +61,8 @@ const getIssueMessage = (issue: ZodIssueOptionalMessage): string => {
       return getTooSmallIssueMessage(issue);
     case ZodIssueCode.too_big:
       return getTooBigIssueMessage(issue);
+    // case ZodIssueCode.invalid_string:
+    //   return getInvalidStringMessage(issue);
     default:
       return unknownIssueMessage;
   }

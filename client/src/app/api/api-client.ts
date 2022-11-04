@@ -1,7 +1,16 @@
 import axios from 'axios';
 
+const dateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+
+const replaceDates = (_key: string, value: any) => {
+  if (typeof value === 'string' && value.match(dateRegex)) return new Date(value);
+
+  return value;
+};
+
 const axiosInstance = axios.create({
-  baseURL: '/api'
+  baseURL: '/api',
+  transformResponse: data => JSON.parse(data, replaceDates)
 });
 
 export default {

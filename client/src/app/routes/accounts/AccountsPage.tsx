@@ -1,12 +1,12 @@
-import {useState} from 'react';
-import {useAllAccountsQuery, useCreateAccountMutation} from '../../api';
+import {useAllAccounts, useCreateAccount} from '../../api';
+import {useToggle} from '../../hooks';
 import {AccountGrid} from './AccountGrid';
 import {CreateAccountDialog} from './CreateAccountDialog';
 
 export const AccountsPage = () => {
-  const [isCreateAccountDialogOpen, setIsCreateAccountDialogOpen] = useState(false);
-  const {isLoading: isLoadingAccounts, error, data: accounts} = useAllAccountsQuery();
-  const {mutate: createAccount, isLoading: isCreatingAccount} = useCreateAccountMutation();
+  const [isCreateAccountDialogOpen, openCreateAccountDialog, closeCreateAccountDialog] = useToggle();
+  const {isLoading: isLoadingAccounts, error, data: accounts} = useAllAccounts();
+  const {mutate: createAccount, isLoading: isCreatingAccount} = useCreateAccount();
 
   if (isLoadingAccounts) {
     return <div>Loading accounts...</div>;
@@ -15,14 +15,6 @@ export const AccountsPage = () => {
   if (error) {
     return <div>An error has occurred!</div>;
   }
-
-  const openCreateAccountDialog = () => {
-    setIsCreateAccountDialogOpen(true);
-  };
-
-  const closeCreateAccountDialog = () => {
-    setIsCreateAccountDialogOpen(false);
-  };
 
   return (
     <>

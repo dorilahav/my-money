@@ -1,13 +1,4 @@
-import {
-  faChartBar,
-  faCreditCard,
-  faFileInvoiceDollar,
-  faHandHoldingUsd,
-  faMoneyCheckAlt,
-  faShekelSign,
-  faTable,
-  IconDefinition
-} from '@fortawesome/free-solid-svg-icons';
+import {faChartBar, faCreditCard, faHandHoldingUsd, faMoneyCheckAlt, faShekelSign, faTable, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
 export interface NavbarItem {
   label: string;
@@ -30,11 +21,6 @@ const items: NavbarItem[] = [
     label: 'חובות',
     icon: faHandHoldingUsd,
     path: '/debts'
-  },
-  {
-    label: 'דוחות',
-    icon: faFileInvoiceDollar,
-    path: '/reports'
   },
   {
     label: 'סטטיסטיקות',

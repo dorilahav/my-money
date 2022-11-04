@@ -1,5 +1,6 @@
 import {Box} from '@mui/material';
 import {AccountViewModel} from '@my-money/common';
+import {useMemo} from 'react';
 
 import {AmountTypography, Caption, Title} from '../../components';
 
@@ -9,6 +10,8 @@ interface AccountCardProps {
 
 export const AccountCard = ({account}: AccountCardProps) => {
   const {name, balance, updatedAt} = account;
+
+  const formattedUpdatedAt = useMemo(() => updatedAt.toLocaleString('he-il', {dateStyle: 'medium', timeStyle: 'short'}), [updatedAt]);
 
   return (
     <Box
@@ -22,7 +25,7 @@ export const AccountCard = ({account}: AccountCardProps) => {
         <Title>{name}</Title>
         <AmountTypography variant="text" amount={balance} />
       </Box>
-      <Caption>Last Update: {updatedAt}</Caption>
+      <Caption>עודכן לאחרונה: {formattedUpdatedAt}</Caption>
     </Box>
   );
 };

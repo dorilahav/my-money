@@ -8,7 +8,7 @@ export const AppToolbar = () => {
     <AppBar position="static" sx={{backgroundColor: theme => theme.palette.background.paper}}>
       <Toolbar sx={{height: TOOLBAR_HEIGHT}}>
         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-          <Title>דשבורד</Title>
+          <Title>הכסף שלי</Title>
           <Box display="flex" gap={6}>
             <Box display="flex" gap={1}>
               <Title>קרדיט:</Title>
