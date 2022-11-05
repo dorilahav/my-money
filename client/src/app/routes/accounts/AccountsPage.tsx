@@ -9,11 +9,11 @@ export const AccountsPage = () => {
   const {mutateAsync: createAccount} = useCreateAccount();
 
   if (isLoadingAccounts) {
-    return <div>Loading accounts...</div>;
+    return <div>טוען...</div>;
   }
 
   if (error) {
-    return <div>An error has occurred!</div>;
+    return <div>קרתה שגיאה בטעינת הנתונים, אנא נסה שוב מאוחר יותר</div>;
   }
 
   return (

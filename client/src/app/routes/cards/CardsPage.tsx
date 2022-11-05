@@ -5,7 +5,7 @@ import {CreateCardDialog} from './create-card-dialog';
 
 export const CardsPage = () => {
   const [isCreateCardDialogOpen, openCreateCardDialog, closeCreateCardDialog] = useToggle();
-  const {isInitialLoading: isLoadingAccounts, error: errorInAccounts, data: accounts} = useAllAccounts();
+  const {isLoading: isLoadingAccounts, error: errorInAccounts, data: accounts} = useAllAccounts();
   const {isLoading: isLoadingCards, error: errorInCards, data: cards} = useAllCards();
   const {mutateAsync: createCard} = useCreateCard();
 
@@ -13,7 +13,7 @@ export const CardsPage = () => {
     return <div>טוען...</div>;
   }
 
-  if (errorInCards || errorInAccounts || !accounts) {
+  if (errorInCards || errorInAccounts) {
     return <div>קרתה שגיאה בטעינת הנתונים, אנא נסה שוב מאוחר יותר</div>;
   }
 
