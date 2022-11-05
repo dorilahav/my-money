@@ -1,40 +1,41 @@
-import {faChartBar, faCreditCard, faHandHoldingUsd, faMoneyCheckAlt, faShekelSign, faTable, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {IconType} from 'react-icons';
+import {FaChartBar, FaCreditCard, FaHandHoldingUsd, FaMoneyCheckAlt, FaShekelSign, FaTable} from 'react-icons/fa';
 
 export interface NavbarItem {
   label: string;
-  icon: IconDefinition;
+  icon: IconType;
   path: string;
 }
 
 const items: NavbarItem[] = [
   {
     label: 'דשבורד',
-    icon: faTable,
+    icon: FaTable,
     path: '/'
   },
   {
     label: 'העברות',
-    icon: faMoneyCheckAlt,
+    icon: FaMoneyCheckAlt,
     path: '/transactions'
   },
   {
     label: 'חובות',
-    icon: faHandHoldingUsd,
+    icon: FaHandHoldingUsd,
     path: '/debts'
   },
   {
     label: 'סטטיסטיקות',
-    icon: faChartBar,
+    icon: FaChartBar,
     path: '/statistics'
   },
   {
     label: 'חשבונות',
-    icon: faShekelSign,
+    icon: FaShekelSign,
     path: '/accounts'
   },
   {
     label: 'כרטיסים',
-    icon: faCreditCard,
+    icon: FaCreditCard,
     path: '/cards'
   }
 ];

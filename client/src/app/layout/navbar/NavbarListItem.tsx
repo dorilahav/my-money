@@ -1,5 +1,4 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {ListItemButton, ListItemIcon, ListItemText, SvgIcon} from '@mui/material';
+import {ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
 import {NavLink} from 'react-router-dom';
 
 import {NavbarItem} from './navbar-items';
@@ -8,7 +7,7 @@ interface NavbarListItemProps {
   item: NavbarItem;
 }
 
-export const NavbarListItem = ({item: {label, icon, path}}: NavbarListItemProps) => (
+export const NavbarListItem = ({item: {label, icon: Icon, path}}: NavbarListItemProps) => (
   <ListItemButton
     component={NavLink}
     to={path}
@@ -19,10 +18,8 @@ export const NavbarListItem = ({item: {label, icon, path}}: NavbarListItemProps)
         background: 'rgba(255, 255, 255, 0.1)'
       }
     }}>
-    <ListItemIcon sx={{minWidth: 'unset', pr: 2}}>
-      <SvgIcon sx={{color: theme => theme.palette.primary.contrastText}}>
-        <FontAwesomeIcon icon={icon} />
-      </SvgIcon>
+    <ListItemIcon sx={{minWidth: 'unset', pr: 2, color: theme => theme.palette.primary.contrastText}}>
+      <Icon size="24px" />
     </ListItemIcon>
     <ListItemText primary={label} />
   </ListItemButton>
