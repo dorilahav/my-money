@@ -1,9 +1,9 @@
 import {Box} from '@mui/material';
 import {AccountViewModel} from '@my-money/common';
 import {useMemo} from 'react';
-import {useDeleteAccountById} from '../../api';
+import {useDeleteAccountById} from '../../../api';
 
-import {AmountTypography, Caption, EntityCard, EntityComponentProps, Title} from '../../components';
+import {AmountTypography, Caption, EntityCard, EntityComponentProps, Title} from '../../../components';
 
 export const AccountCard = ({entity}: EntityComponentProps<AccountViewModel>) => {
   const {id, name, balance, updatedAt} = entity;

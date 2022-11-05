@@ -1,6 +1,6 @@
 import {useAllAccounts, useCreateAccount} from '../../api';
 import {useToggle} from '../../hooks';
-import {AccountGrid} from './AccountGrid';
+import {AccountGrid} from './account-grid';
 import {CreateAccountDialog} from './create-account-dialog';
 
 export const AccountsPage = () => {

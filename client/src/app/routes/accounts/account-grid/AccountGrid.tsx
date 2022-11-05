@@ -1,6 +1,6 @@
 import {AccountViewModel} from '@my-money/common';
 
-import {EntityGrid} from '../../components';
+import {EntityGrid} from '../../../components';
 import {AccountCard} from './AccountCard';
 
 interface AccountGridProps {
