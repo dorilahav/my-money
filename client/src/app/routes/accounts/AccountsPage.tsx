@@ -6,7 +6,7 @@ import {CreateAccountDialog} from './create-account-dialog';
 export const AccountsPage = () => {
   const [isCreateAccountDialogOpen, openCreateAccountDialog, closeCreateAccountDialog] = useToggle();
   const {isLoading: isLoadingAccounts, error, data: accounts} = useAllAccounts();
-  const {mutate: createAccount} = useCreateAccount();
+  const {mutateAsync: createAccount} = useCreateAccount();
 
   if (isLoadingAccounts) {
     return <div>Loading accounts...</div>;

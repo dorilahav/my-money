@@ -7,7 +7,7 @@ export const CardsPage = () => {
   const [isCreateCardDialogOpen, openCreateCardDialog, closeCreateCardDialog] = useToggle();
   const {isInitialLoading: isLoadingAccounts, error: errorInAccounts, data: accounts} = useAllAccounts();
   const {isLoading: isLoadingCards, error: errorInCards, data: cards} = useAllCards();
-  const {mutate: createCard} = useCreateCard();
+  const {mutateAsync: createCard} = useCreateCard();
 
   if (isLoadingAccounts || isLoadingCards) {
     return <div>טוען...</div>;
