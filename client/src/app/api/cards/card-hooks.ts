@@ -1,15 +1,18 @@
-import {CardViewModel} from '@my-money/common';
-import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {create, getAll} from './cards-api';
+import {CardViewModel, Id} from '@my-money/common';
+import {useMutation, useQuery} from '@tanstack/react-query';
+import {useInvalidateQueriesOnSuccess} from '../common';
+import {create, deleteById, getAll} from './cards-api';
 
 export const useAllCards = () => useQuery<CardViewModel[], Error>(['cards'], getAll);
 
 export const useCreateCard = () => {
-  const queryClient = useQueryClient();
+  const onSuccess = useInvalidateQueriesOnSuccess(['cards'], {exact: true});
 
-  return useMutation(['cards', 'create'], create, {
-    onSuccess(createdCard) {
-      queryClient.setQueryData<CardViewModel[]>(['cards'], cards => (cards ? [...cards, createdCard] : [createdCard]));
-    }
-  });
+  return useMutation(['cards', 'create'], create, {onSuccess});
+};
+
+export const useDeleteCardById = (id: Id) => {
+  const onSuccess = useInvalidateQueriesOnSuccess(['cards']);
+
+  return useMutation(['cards', 'delete'], () => deleteById(id), {onSuccess});
 };

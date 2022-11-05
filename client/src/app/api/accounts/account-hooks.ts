@@ -1,6 +1,7 @@
 import {AccountViewModel, Id} from '@my-money/common';
-import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {create, getAll} from './accounts-api';
+import {useMutation, useQuery} from '@tanstack/react-query';
+import {useInvalidateQueriesOnSuccess} from '../common';
+import {create, deleteById, getAll} from './accounts-api';
 
 type AllAccountsQuerySelectFunction<TData> = (allAccounts: AccountViewModel[]) => TData;
 
@@ -11,11 +12,13 @@ export const useAllAccounts = () => useAllAccountsQuery();
 export const useAccountById = (id: Id) => useAllAccountsQuery(accounts => accounts.find(x => x.id === id));
 
 export const useCreateAccount = () => {
-  const queryClient = useQueryClient();
+  const onSuccess = useInvalidateQueriesOnSuccess(['accounts'], {exact: true});
 
-  return useMutation(['accounts', 'create'], create, {
-    onSuccess(createdAccount) {
-      queryClient.setQueryData<AccountViewModel[]>(['accounts'], accounts => (accounts ? [...accounts, createdAccount] : [createdAccount]));
-    }
-  });
+  return useMutation(['accounts', 'create'], create, {onSuccess});
+};
+
+export const useDeleteAccountById = (id: Id) => {
+  const onSuccess = useInvalidateQueriesOnSuccess(['accounts']);
+
+  return useMutation(['accounts', 'delete'], () => deleteById(id), {onSuccess});
 };
