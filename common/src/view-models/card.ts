@@ -14,3 +14,7 @@ export interface NewCardViewModel {
   chargingDate: number;
   linkedAccount: Id;
 }
+
+export interface CardEditsViewModel {
+  chargingDate: number;
+}

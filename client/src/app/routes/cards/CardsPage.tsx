@@ -1,13 +1,21 @@
-import {useAllAccounts, useAllCards, useCreateCard} from '../../api';
+import {Id} from '@my-money/common';
+import {useMemo, useState} from 'react';
+import {useAllAccounts, useAllCards, useCreateCard, useEditCard} from '../../api';
 import {useToggle} from '../../hooks';
+
 import {CardGrid} from './card-grid';
 import {CreateCardDialog} from './create-card-dialog';
+import {EditCardDialog} from './edit-card-dialog';
 
 export const CardsPage = () => {
   const [isCreateCardDialogOpen, openCreateCardDialog, closeCreateCardDialog] = useToggle();
-  const {isLoading: isLoadingAccounts, error: errorInAccounts, data: accounts} = useAllAccounts();
+  const [editedCardId, setEditedCardId] = useState<Id>();
   const {isLoading: isLoadingCards, error: errorInCards, data: cards} = useAllCards();
+  const {isLoading: isLoadingAccounts, error: errorInAccounts, data: accounts} = useAllAccounts();
   const {mutateAsync: createCard} = useCreateCard();
+  const {mutateAsync: editCard} = useEditCard(editedCardId);
+
+  const editedCard = useMemo(() => (editedCardId && cards ? cards.find(x => x.id === editedCardId) : undefined), [editedCardId, cards]);
 
   if (isLoadingAccounts || isLoadingCards) {
     return <div>טוען...</div>;
@@ -23,8 +31,9 @@ export const CardsPage = () => {
 
   return (
     <>
-      <CardGrid cards={cards} onCreateClick={openCreateCardDialog} />
+      <CardGrid cards={cards} onCreateClick={openCreateCardDialog} onEditClick={setEditedCardId} />
       <CreateCardDialog isOpen={isCreateCardDialogOpen} accounts={accounts} onClose={closeCreateCardDialog} onCreate={createCard} />
+      <EditCardDialog card={editedCard} onClose={() => setEditedCardId(undefined)} onEdit={editCard} />
     </>
   );
 };

@@ -7,7 +7,7 @@ export interface UseFormReturn<T extends FieldValues> {
   isSubmitting: boolean;
   control: Control<T>;
   watch: UseFormWatch<T>;
-  resetForm: () => void;
+  resetForm: (values?: T) => void;
 }
 
 export const useForm = <T extends FieldValues>(validationSchema: ZodSchema, defaultValues?: DefaultValues<T>): UseFormReturn<T> => {
@@ -16,8 +16,8 @@ export const useForm = <T extends FieldValues>(validationSchema: ZodSchema, defa
     resolver: zodResolver(validationSchema)
   });
 
-  const resetForm = () => {
-    reset();
+  const resetForm = (values?: T) => {
+    reset(values);
   };
 
   return {

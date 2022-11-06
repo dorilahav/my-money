@@ -34,3 +34,17 @@ export const deleteById: RequestHandler<{id: string}> = async ({params: {id}}) =
 
   return convertToViewModel(card);
 };
+
+export const replaceById: RequestHandler<{id: string}, {}, CardEditsViewModel> = async ({params: {id}, body: {chargingDate}}) => {
+  const card = await Card.findById(id);
+
+  if (!card) {
+    throw new EntityNotFoundError(Card);
+  }
+
+  card.chargingDate = chargingDate;
+
+  const editedCard = await card.save();
+
+  return convertToViewModel(editedCard);
+};

@@ -1,3 +1,3 @@
-export {AccountViewModel, NewAccountViewModel} from './account';
-export {BaseViewModel, Id} from './base';
-export {CardViewModel, NewCardViewModel} from './card';
+export * from './account';
+export * from './base';
+export * from './card';

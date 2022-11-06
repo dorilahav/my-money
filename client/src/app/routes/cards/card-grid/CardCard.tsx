@@ -9,7 +9,7 @@ const typeToTextMap: Record<CardType, string> = {
   [CardType.Debit]: 'דיירקט'
 };
 
-export const CardCard = ({entity}: EntityComponentProps<CardViewModel>) => {
+export const CardCard = ({entity, onEditClick}: EntityComponentProps<CardViewModel>) => {
   const {id, label, type, chargingDate, linkedAccount} = entity;
   const {data: account} = useAccountById(linkedAccount);
   const {isLoading: isDeletingCard, mutateAsync: deleteCard} = useDeleteCardById(id);
@@ -17,7 +17,7 @@ export const CardCard = ({entity}: EntityComponentProps<CardViewModel>) => {
   const typeText = typeToTextMap[type];
 
   return (
-    <EntityCard onDeleteClick={deleteCard} disableActions={isDeletingCard}>
+    <EntityCard onDeleteClick={deleteCard} onEditClick={onEditClick} disableActions={isDeletingCard}>
       <Box display="flex" justifyContent="space-between">
         <Title>{label}</Title>
         <Text>כרטיס {typeText}</Text>

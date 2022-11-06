@@ -1,17 +1,20 @@
 import {Box, darken} from '@mui/material';
 import {useState} from 'react';
-import {FaTrash} from 'react-icons/fa';
+import {FaPen, FaTrash} from 'react-icons/fa';
 import {IconButton} from '../buttons';
 
 interface EntityCardProps extends PropsWithChildren {
   disableActions?: boolean;
   onDeleteClick?: () => void;
+  onEditClick?: () => void;
 }
 
-export const EntityCard = ({children, onDeleteClick, disableActions}: EntityCardProps) => {
+export const EntityCard = ({children, onDeleteClick, onEditClick, disableActions}: EntityCardProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const shouldShowDeleteButton = !!onDeleteClick;
+  const shouldShowEditButton = !!onEditClick;
+  const shouldShowHoverEffect = shouldShowDeleteButton || shouldShowEditButton;
 
   return (
     <Box
@@ -23,7 +26,7 @@ export const EntityCard = ({children, onDeleteClick, disableActions}: EntityCard
         borderRadius: theme => theme.shape.borderRadius,
         height: 200,
         p: 2,
-        ...(shouldShowDeleteButton
+        ...(shouldShowHoverEffect
           ? {
               '&:hover': {
                 backgroundColor: theme => darken(theme.palette.action.disabled, 0.1)
@@ -31,7 +34,7 @@ export const EntityCard = ({children, onDeleteClick, disableActions}: EntityCard
             }
           : {})
       }}>
-      {shouldShowDeleteButton && isHovering && (
+      {shouldShowHoverEffect && isHovering && (
         <Box display="flex" justifyContent="center" alignItems="center" position="absolute" top="0" left="0" width="100%" height="100%">
           {shouldShowDeleteButton && (
             <IconButton
@@ -42,6 +45,18 @@ export const EntityCard = ({children, onDeleteClick, disableActions}: EntityCard
               size="small"
               icon={FaTrash}
               onClick={onDeleteClick}
+              disabled={disableActions}
+            />
+          )}
+          {shouldShowEditButton && (
+            <IconButton
+              sx={{
+                background: 'white',
+                color: theme => darken(theme.palette.action.disabled, 0.1)
+              }}
+              size="small"
+              icon={FaPen}
+              onClick={onEditClick}
               disabled={disableActions}
             />
           )}
