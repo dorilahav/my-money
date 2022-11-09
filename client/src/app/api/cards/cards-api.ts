@@ -1,11 +1,28 @@
-import {CardEditsViewModel, CardViewModel, Id, NewCardViewModel} from '@my-money/common';
+import { CardEditsViewModel, CardViewModel, Id, NewCardViewModel } from '@my-money/common';
 
-import apiClient from '../api-client';
 
-export const getAll = () => apiClient.get<CardViewModel[]>('/cards');
+import { Models, supabase } from '../supabase-client';
 
-export const create = (newCard: NewCardViewModel) => apiClient.post<CardViewModel, NewCardViewModel>('/cards', newCard);
+const convertToViewModel = ({chargingDate, ...model}: Models['cards']): CardViewModel => ({
+  ...model,
+  chargingDate: chargingDate ?? undefined
+});
 
-export const deleteById = (id: Id) => apiClient.delete<CardViewModel>(`/cards/${id}`);
+export const getAll = async () => {
+  const response = await supabase.from('cards').select();
+  const accounts = response.data ?? [];
 
-export const editCard = (id: Id, cardEdits: CardEditsViewModel) => apiClient.put<CardViewModel, CardEditsViewModel>(`/cards/${id}`, cardEdits);
+  return accounts.map(convertToViewModel);
+};
+
+export const create = async (newCard: NewCardViewModel) => {
+  await supabase.from('cards').insert(newCard);
+}
+
+export const deleteById = async (id: Id) => {
+  await supabase.from('cards').delete().eq('id', id);
+}
+
+export const editCard = async (id: Id, cardEdits: CardEditsViewModel) => {
+  await supabase.from('cards').update(cardEdits).eq('id', id);
+}

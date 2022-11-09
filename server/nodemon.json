@@ -1,5 +1,0 @@
-{
-  "exec": "npm run build && node ./dist",
-  "watch": ["src"],
-  "ext": "ts,js"
-}
