@@ -13,7 +13,7 @@ const App = () => {
     <ThemeProvider>
       <QueryClientProvider>
         <AppLayout>
-          <Routes />
+          <Routes/>
         </AppLayout>
       </QueryClientProvider>
     </ThemeProvider>
