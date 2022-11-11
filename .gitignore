@@ -11,3 +11,5 @@ lib
 # Supabase
 .branches
 .temp
+
+.idea

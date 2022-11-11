@@ -51,6 +51,58 @@ export interface Database {
           chargingDate?: number | null
           linkedAccount?: string
         }
+      },
+      tags: {
+        Row: {
+          id: string
+          user: string
+          name: string
+          color: string
+          icon?: string | null
+        }
+        Insert: {
+          id?: string
+          user: string
+          name: string
+          color: string
+          icon?: string | null
+        }
+        Update: {
+          id?: string
+          user?: string
+          name?: string
+          color?: string
+          icon?: string | null
+        }
+      },
+      transactions: {
+        Row: {
+          id: string
+          type: number
+          dateOfTransaction: string
+          sum: number
+          isBusinessRelated: boolean
+          details?: string | null
+          account: string
+        }
+        Insert: {
+          id?: string
+          type: number
+          dateOfTransaction: string
+          sum: number
+          isBusinessRelated: boolean
+          details?: string | null
+          account: string
+        }
+        Update: {
+          id?: string
+          type?: number
+          dateOfTransaction?: string
+          sum?: number
+          isBusinessRelated?: boolean
+          details?: string | null
+          account?: string
+        }
       }
     }
     Views: {
