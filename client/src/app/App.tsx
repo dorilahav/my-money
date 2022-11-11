@@ -1,7 +1,6 @@
 import {configureZod} from '@my-money/common';
 import {useEffect} from 'react';
-import {AppLayout} from './layout';
-import {QueryClientProvider, ThemeProvider} from './providers';
+import {AuthProvider, QueryClientProvider, ThemeProvider} from './providers';
 import {Routes} from './routes';
 
 const App = () => {
@@ -11,11 +10,11 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      <QueryClientProvider>
-        <AppLayout>
+      <AuthProvider>
+        <QueryClientProvider>
           <Routes/>
-        </AppLayout>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 };
