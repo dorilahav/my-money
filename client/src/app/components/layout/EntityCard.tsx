@@ -18,13 +18,15 @@ export const EntityCard = ({children, onDeleteClick, onEditClick, disableActions
 
   return (
     <Box
+      display="flex"
+      flexDirection="column"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       sx={{
         position: 'relative',
         backgroundColor: 'background.paper',
         borderRadius: theme => theme.shape.borderRadius,
-        height: 200,
+        height: 224,
         p: 2,
         ...(shouldShowHoverEffect
           ? {
@@ -35,28 +37,34 @@ export const EntityCard = ({children, onDeleteClick, onEditClick, disableActions
           : {})
       }}>
       {shouldShowHoverEffect && isHovering && (
-        <Box display="flex" justifyContent="center" alignItems="center" position="absolute" top="0" left="0" width="100%" height="100%">
-          {shouldShowDeleteButton && (
-            <IconButton
-              sx={{
-                background: 'white',
-                color: theme => darken(theme.palette.action.disabled, 0.1)
-              }}
-              size="small"
-              icon={FaTrash}
-              onClick={onDeleteClick}
-              disabled={disableActions}
-            />
-          )}
+        <Box display="flex" justifyContent="center" alignItems="center" position="absolute" top="0" left="0" width="100%" height="100%" gap={1}>
           {shouldShowEditButton && (
             <IconButton
               sx={{
+                zIndex: 1,
                 background: 'white',
-                color: theme => darken(theme.palette.action.disabled, 0.1)
+                color: theme => darken(theme.palette.action.disabled, 0.1),
+                height: 42,
+                width: 42
               }}
               size="small"
               icon={FaPen}
               onClick={onEditClick}
+              disabled={disableActions}
+            />
+          )}
+          {shouldShowDeleteButton && (
+            <IconButton
+              sx={{
+                zIndex: 1,
+                background: 'white',
+                color: theme => darken(theme.palette.action.disabled, 0.1),
+                height: 42,
+                width: 42
+              }}
+              size="small"
+              icon={FaTrash}
+              onClick={onDeleteClick}
               disabled={disableActions}
             />
           )}

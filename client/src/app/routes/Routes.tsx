@@ -1,13 +1,13 @@
 import {useRoutes} from 'react-router-dom';
+import {AppLayout} from '../layout';
 import {useAuth} from '../providers';
 
 import {accounts} from './accounts';
-import {cards} from './cards';
-
-import {AppLayout} from '../layout';
 import {AuthPage} from './auth';
+import {cards} from './cards';
+import {dashboard} from './dashboard';
 
-const appRoutes = [accounts, cards];
+const appRoutes = [dashboard, accounts, cards];
 
 const AppRoutes = () => useRoutes(appRoutes);
 
