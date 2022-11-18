@@ -1,0 +1,1 @@
+export {BarChartAmountTooltip} from './BarChartAmountTooltip';

@@ -17,7 +17,7 @@ export const PlusCardButton = ({onClick}: PlusCardButtonProps) => (
     sx={{
       backgroundColor: 'action.disabled',
       borderRadius: theme => theme.shape.borderRadius,
-      height: 200,
+      height: 224,
       '&:hover': {
         backgroundColor: theme => darken(theme.palette.action.disabled, 0.1)
       }
