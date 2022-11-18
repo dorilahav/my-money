@@ -1,7 +1,7 @@
 import type {SelectProps} from '@mui/material';
 import {FormControl, FormHelperText, InputLabel, MenuItem, Select} from '@mui/material';
 import {useId} from 'react';
-import {Control, FieldPath, FieldValues, useController} from 'react-hook-form';
+import {FieldPath, FieldValues, useController} from 'react-hook-form';
 
 export interface Option<T> {
   label: string;
@@ -10,13 +10,11 @@ export interface Option<T> {
 
 export interface SelectFieldProps<T, TFieldValues extends FieldValues> extends Omit<SelectProps<string>, 'id' | 'labelId'> {
   name: FieldPath<TFieldValues>;
-  control: Control<TFieldValues>;
   options: Option<T>[];
 }
 
 export const SelectField = function <T, TFieldValues extends FieldValues>({
   name,
-  control,
   options,
   label,
   disabled,
@@ -27,7 +25,7 @@ export const SelectField = function <T, TFieldValues extends FieldValues>({
   const {
     field: {onChange, value: valueInForm, ref, ...field},
     fieldState: {error}
-  } = useController({name, control});
+  } = useController({name});
 
   const value = options.find(x => x.value === valueInForm)?.label ?? '';
 

@@ -1,6 +1,6 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
+import {Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
 import {AccountViewModel, CardType, newCardValidationSchema, NewCardViewModel} from '@my-money/common';
-import {Form} from '../../../components';
+import {Form, FormSubmitButton} from '../../../components';
 import {useForm} from '../../../hooks';
 import {CreateCardFormContent} from './CreateCardFormContent';
 
@@ -33,9 +33,7 @@ export const CreateCardDialog = ({isOpen, accounts, onClose, onCreate}: CreateCa
           <CreateCardFormContent accounts={accounts} />
         </DialogContent>
         <DialogActions>
-          <Button type="submit" color="primary" disabled={newCardForm.isSubmitting}>
-            צור כרטיס
-          </Button>
+          <FormSubmitButton color="primary">צור כרטיס</FormSubmitButton>
         </DialogActions>
       </Form>
     </Dialog>

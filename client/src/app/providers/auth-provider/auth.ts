@@ -27,7 +27,7 @@ const loginWithOtp = async (email: string) => {
 };
 
 const getUserOnStateChange = (event: AuthChangeEvent, session: Session | null) => {
-  if (['SIGNED_IN', 'USER_UPDATED'].includes(event)) {
+  if (['SIGNED_IN', 'USER_UPDATED', 'TOKEN_REFRESHED'].includes(event)) {
     return session!.user;
   }
 };

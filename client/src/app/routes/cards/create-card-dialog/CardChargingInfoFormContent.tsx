@@ -16,7 +16,7 @@ const cardTypeOptions = [
 ];
 
 export const CardChargingInfoFormContent = () => {
-  const {watch, control} = useWrappingForm<NewCardViewModel>();
+  const {watch} = useWrappingForm<NewCardViewModel>();
   const cardTypeGridRef = useRef<HTMLDivElement>(null);
   const chargingDateGridRef = useRef<HTMLDivElement>(null);
   const hasChargingDate = watch('type') === CardType.Credit;
@@ -51,10 +51,10 @@ export const CardChargingInfoFormContent = () => {
   return (
     <Grid container item xs={12} spacing={2}>
       <Grid ref={cardTypeGridRef} item xs={hasChargingDate ? 6 : 12} sx={{transition: 'all 250ms ease'}}>
-        <SelectField label="סוג כרטיס" name="type" control={control} options={cardTypeOptions} />
+        <SelectField label="סוג כרטיס" name="type" options={cardTypeOptions} />
       </Grid>
       <Grid ref={chargingDateGridRef} item xs={6}>
-        <NumberField label="מועד חיוב" name="chargingDate" control={control} />
+        <NumberField label="מועד חיוב" name="chargingDate" />
       </Grid>
     </Grid>
   );

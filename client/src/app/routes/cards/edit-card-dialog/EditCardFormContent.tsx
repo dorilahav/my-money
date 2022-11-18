@@ -8,11 +8,11 @@ interface EditCardFormContent {
 }
 
 export const EditCardFormContent = ({card}: EditCardFormContent) => {
-  const {control, resetForm} = useWrappingForm<CardEditsViewModel>();
+  const {reset} = useWrappingForm<CardEditsViewModel>();
 
   useEffect(() => {
-    resetForm(card);
+    reset(card);
   }, [card]);
 
-  return <NumberField label="מועד חיוב" name="chargingDate" control={control} />;
+  return <NumberField label="מועד חיוב" name="chargingDate" />;
 };

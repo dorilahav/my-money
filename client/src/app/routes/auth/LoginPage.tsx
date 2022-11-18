@@ -27,10 +27,10 @@ export const LoginPage = ({onLoginSubmit}: LoginPageProps) => {
             <Title>MyMoney</Title>
           </Grid>
           <Grid item xs={12}>
-            <TextField control={form.control} name="email" label="כתובת אימייל" />
+            <TextField name="email" label="כתובת אימייל" />
           </Grid>
           <Grid item xs={12}>
-            <LoadingButton type="submit" variant="contained" loading={form.isSubmitting} fullWidth>
+            <LoadingButton type="submit" variant="contained" loading={form.formState.isSubmitting} fullWidth>
               התחברות
             </LoadingButton>
           </Grid>

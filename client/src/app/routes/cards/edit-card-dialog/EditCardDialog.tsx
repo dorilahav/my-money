@@ -1,6 +1,6 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
+import {Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
 import {CardEditsViewModel, CardViewModel, editCardValidationSchema} from '@my-money/common';
-import {Form} from '../../../components';
+import {Form, FormSubmitButton} from '../../../components';
 import {useForm} from '../../../hooks';
 import {EditCardFormContent} from './EditCardFormContent';
 
@@ -26,9 +26,7 @@ export const EditCardDialog = ({card, onClose, onEdit}: EditCardDialogProps) => 
           <EditCardFormContent card={card} />
         </DialogContent>
         <DialogActions>
-          <Button type="submit" color="primary" disabled={editCardForm.isSubmitting}>
-            עדכן כרטיס
-          </Button>
+          <FormSubmitButton color="primary">עדכן כרטיס</FormSubmitButton>
         </DialogActions>
       </Form>
     </Dialog>

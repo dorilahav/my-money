@@ -1,6 +1,6 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
+import {Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
 import {newAccountValidationSchema, NewAccountViewModel} from '@my-money/common';
-import {Form} from '../../../components';
+import {Form, FormSubmitButton} from '../../../components';
 import {useForm} from '../../../hooks';
 import {CreateAccountFormContent} from './CreateAccountFormContent';
 
@@ -26,9 +26,7 @@ export const CreateAccountDialog = ({isOpen, onClose, onCreate}: CreateAccountDi
           <CreateAccountFormContent />
         </DialogContent>
         <DialogActions>
-          <Button type="submit" color="primary" disabled={newAccountForm.isSubmitting}>
-            צור חשבון
-          </Button>
+          <FormSubmitButton color="primary">צור חשבון</FormSubmitButton>
         </DialogActions>
       </Form>
     </Dialog>

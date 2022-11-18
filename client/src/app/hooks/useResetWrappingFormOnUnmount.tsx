@@ -2,9 +2,9 @@ import {useEffect} from 'react';
 import {useWrappingForm} from './useWrappingForm';
 
 export const useResetWrappingFormOnUnmount = () => {
-  const {resetForm} = useWrappingForm();
+  const {reset} = useWrappingForm();
 
   useEffect(() => {
-    return resetForm;
+    return reset;
   }, []);
 };

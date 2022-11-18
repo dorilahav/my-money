@@ -1,8 +1,8 @@
 import {Grid} from '@mui/material';
-import {AccountViewModel, NewCardViewModel} from '@my-money/common';
+import {AccountViewModel} from '@my-money/common';
 import {useMemo} from 'react';
 import {SelectField, TextField} from '../../../components';
-import {useResetWrappingFormOnUnmount, useWrappingForm} from '../../../hooks';
+import {useResetWrappingFormOnUnmount} from '../../../hooks';
 import {CardChargingInfoFormContent} from './CardChargingInfoFormContent';
 
 interface CreateCardFormContentProps {
@@ -10,7 +10,6 @@ interface CreateCardFormContentProps {
 }
 
 export const CreateCardFormContent = ({accounts}: CreateCardFormContentProps) => {
-  const {control} = useWrappingForm<NewCardViewModel>();
   const accountOptions = useMemo(() => accounts.map(({id, name}) => ({value: id, label: name})), [accounts]);
 
   useResetWrappingFormOnUnmount();
@@ -18,11 +17,11 @@ export const CreateCardFormContent = ({accounts}: CreateCardFormContentProps) =>
   return (
     <Grid container spacing={2} width={400}>
       <Grid item xs={12}>
-        <TextField label="מזהה" name="label" control={control} helperText="איזשהו שם לכרטיס שיעזור לזהות אותו" />
+        <TextField label="מזהה" name="label" helperText="איזשהו שם לכרטיס שיעזור לזהות אותו" />
       </Grid>
       <CardChargingInfoFormContent />
       <Grid item xs={12}>
-        <SelectField label="חשבון מחובר" name="linkedAccount" control={control} options={accountOptions} />
+        <SelectField label="חשבון מחובר" name="linkedAccount" options={accountOptions} />
       </Grid>
     </Grid>
   );
