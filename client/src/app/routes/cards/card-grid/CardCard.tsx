@@ -1,8 +1,7 @@
-import {Box} from '@mui/material';
 import {CardType, CardViewModel} from '@my-money/common';
 import {useAccountById, useDeleteCardById} from '../../../api';
 
-import {Caption, EntityCard, EntityComponentProps, Text, Title} from '../../../components';
+import {Caption, EntityCard, EntityCardHeader, EntityComponentProps, Text} from '../../../components';
 
 const typeToTextMap: Record<CardType, string> = {
   [CardType.Credit]: 'קרדיט',
@@ -17,11 +16,14 @@ export const CardCard = ({entity, onEditClick}: EntityComponentProps<CardViewMod
   const typeText = typeToTextMap[type];
 
   return (
-    <EntityCard onDeleteClick={deleteCard} onEditClick={onEditClick} disableActions={isDeletingCard}>
-      <Box display="flex" justifyContent="space-between">
-        <Title>{label}</Title>
-        <Text>כרטיס {typeText}</Text>
-      </Box>
+    <EntityCard>
+      <EntityCardHeader
+        title={label}
+        value={<Text>כרטיס {typeText}</Text>}
+        onDeleteClick={deleteCard}
+        onEditClick={onEditClick}
+        disableActions={isDeletingCard}
+      />
       {account && <Caption>יורד מחשבון: {account.name}</Caption>}
       {type === CardType.Credit && <Caption>מועד חיוב: {chargingDate} בחודש</Caption>}
     </EntityCard>
