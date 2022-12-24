@@ -1,5 +1,5 @@
 import {Grid} from '@mui/material';
-import {BaseViewModel, Id} from '@my-money/common';
+import {BaseViewModel, Id} from '../../view-models';
 
 import {PlusCardButton} from '../buttons';
 

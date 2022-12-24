@@ -1,8 +1,8 @@
 import {Box, Grid} from '@mui/material';
-import {loginValidationSchema} from '@my-money/common';
 
 import {Form, LoadingButton, TextField, Title} from '../../components';
 import {useForm} from '../../hooks';
+import {loginValidationSchema} from '../../validation-schemas';
 
 interface LoginFormValues {
   email: string;

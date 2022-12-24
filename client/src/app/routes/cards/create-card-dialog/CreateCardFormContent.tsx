@@ -1,8 +1,8 @@
 import {Grid} from '@mui/material';
-import {AccountViewModel} from '@my-money/common';
 import {useMemo} from 'react';
 import {SelectField, TextField} from '../../../components';
 import {useResetWrappingFormOnUnmount} from '../../../hooks';
+import {AccountViewModel} from '../../../view-models';
 import {CardChargingInfoFormContent} from './CardChargingInfoFormContent';
 
 interface CreateCardFormContentProps {

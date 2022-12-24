@@ -1,12 +1,7 @@
-import { CardEditsViewModel, CardViewModel, Id, NewCardViewModel } from '@my-money/common';
+import {CardViewModel, Id, NewCardViewModel} from '../../view-models';
 
-
-import { Models, supabase } from '../supabase-client';
-
-const convertToViewModel = ({chargingDate, ...model}: Models['cards']): CardViewModel => ({
-  ...model,
-  chargingDate: chargingDate ?? undefined
-});
+import {supabase} from '../supabase-client';
+import {convertToNewSupabaseModel, convertToViewModel} from './card-converter';
 
 export const getAll = async () => {
   const response = await supabase.from('cards').select();
@@ -16,13 +11,15 @@ export const getAll = async () => {
 };
 
 export const create = async (newCard: NewCardViewModel) => {
-  await supabase.from('cards').insert(newCard);
-}
+  const newSupabaseCard = convertToNewSupabaseModel(newCard);
+
+  await supabase.from('cards').insert(newSupabaseCard);
+};
 
 export const deleteById = async (id: Id) => {
   await supabase.from('cards').delete().eq('id', id);
-}
+};
 
-export const editCard = async (id: Id, cardEdits: CardEditsViewModel) => {
-  await supabase.from('cards').update(cardEdits).eq('id', id);
-}
+export const editCard = async (id: Id, card: CardViewModel) => {
+  await supabase.from('cards').update(card).eq('id', id);
+};

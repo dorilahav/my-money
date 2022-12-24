@@ -1,6 +1,6 @@
 import {Box} from '@mui/material';
-import {AccountViewModel} from '@my-money/common';
 import {useDeleteAccountById} from '../../../api';
+import {AccountViewModel} from '../../../view-models';
 
 import {AmountTypography, EntityCard, EntityCardHeader, EntityComponentProps} from '../../../components';
 import {useElementDimensions} from '../../../hooks';

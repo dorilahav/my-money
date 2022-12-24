@@ -1,21 +1,22 @@
 import {Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
-import {CardEditsViewModel, CardViewModel, editCardValidationSchema} from '@my-money/common';
 import {Form, FormSubmitButton} from '../../../components';
 import {useForm} from '../../../hooks';
+import {editCardValidationSchema} from '../../../validation-schemas';
+import {CardViewModel} from '../../../view-models';
 import {EditCardFormContent} from './EditCardFormContent';
 
 interface EditCardDialogProps {
   card?: CardViewModel;
   onClose: () => any;
-  onEdit: (cardEdits: CardEditsViewModel) => any;
+  onEdit: (card: CardViewModel) => any;
 }
 
 export const EditCardDialog = ({card, onClose, onEdit}: EditCardDialogProps) => {
-  const editCardForm = useForm<CardEditsViewModel>(editCardValidationSchema);
+  const editCardForm = useForm<CardViewModel>(editCardValidationSchema);
 
-  const editCard = (cardEdits: CardEditsViewModel) => {
+  const editCard = (card: CardViewModel) => {
     onClose();
-    return onEdit(cardEdits);
+    return onEdit(card);
   };
 
   return (

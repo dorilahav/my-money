@@ -1,6 +1,5 @@
-import {CardViewModel, Id} from '@my-money/common';
 import {EntityGrid} from '../../../components';
-
+import {CardViewModel, Id} from '../../../view-models';
 import {CardCard} from './CardCard';
 
 interface CardGridProps {

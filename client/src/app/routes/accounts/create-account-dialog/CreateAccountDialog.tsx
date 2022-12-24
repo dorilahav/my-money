@@ -1,7 +1,8 @@
 import {Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
-import {newAccountValidationSchema, NewAccountViewModel} from '@my-money/common';
 import {Form, FormSubmitButton} from '../../../components';
 import {useForm} from '../../../hooks';
+import {newAccountValidationSchema} from '../../../validation-schemas';
+import {NewAccountViewModel} from '../../../view-models';
 import {CreateAccountFormContent} from './CreateAccountFormContent';
 
 interface CreateAccountDialogProps {

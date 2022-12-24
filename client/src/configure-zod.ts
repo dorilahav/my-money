@@ -76,6 +76,8 @@ const zodErrorMap: ZodErrorMap = issue => {
   };
 };
 
-export default () => {
+const configureZod = () => {
   setErrorMap(zodErrorMap);
 };
+
+configureZod();

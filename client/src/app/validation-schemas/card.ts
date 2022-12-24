@@ -1,5 +1,5 @@
 import zod from 'zod';
-import { CardType } from '../enum';
+import {CardType} from '../view-models';
 
 const chargingDateValidation = zod.number().min(1).max(28);
 
@@ -23,6 +23,7 @@ export const newCardValidationSchema = baseNewCardValidationSchema
     )
   );
 
+// TODO: fix this.
 export const editCardValidationSchema = zod.object({
   chargingDate: chargingDateValidation
 });

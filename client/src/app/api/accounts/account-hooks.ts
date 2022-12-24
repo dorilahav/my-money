@@ -1,5 +1,5 @@
-import {AccountViewModel, Id} from '@my-money/common';
 import {useMutation, useQuery} from '@tanstack/react-query';
+import {AccountViewModel, Id} from '../../view-models';
 import {useInvalidateQueriesOnSuccess} from '../common';
 import {create, deleteById, getAll} from './accounts-api';
 

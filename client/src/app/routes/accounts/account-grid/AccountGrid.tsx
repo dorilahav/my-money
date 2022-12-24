@@ -1,4 +1,4 @@
-import {AccountViewModel} from '@my-money/common';
+import {AccountViewModel} from '../../../view-models';
 
 import {EntityGrid} from '../../../components';
 import {AccountCard} from './AccountCard';

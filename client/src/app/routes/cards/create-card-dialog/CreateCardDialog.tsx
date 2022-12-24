@@ -1,7 +1,8 @@
 import {Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
-import {AccountViewModel, CardType, newCardValidationSchema, NewCardViewModel} from '@my-money/common';
 import {Form, FormSubmitButton} from '../../../components';
 import {useForm} from '../../../hooks';
+import {newCardValidationSchema} from '../../../validation-schemas';
+import {AccountViewModel, CardType, NewCardViewModel} from '../../../view-models';
 import {CreateCardFormContent} from './CreateCardFormContent';
 
 interface CreateCardDialogProps {

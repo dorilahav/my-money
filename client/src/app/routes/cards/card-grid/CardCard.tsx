@@ -1,7 +1,6 @@
-import {CardType, CardViewModel} from '@my-money/common';
 import {useAccountById, useDeleteCardById} from '../../../api';
-
 import {Caption, EntityCard, EntityCardHeader, EntityComponentProps, Text} from '../../../components';
+import {CardType, CardViewModel} from '../../../view-models';
 
 const typeToTextMap: Record<CardType, string> = {
   [CardType.Credit]: 'קרדיט',

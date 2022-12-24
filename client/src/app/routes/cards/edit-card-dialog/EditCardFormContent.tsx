@@ -1,14 +1,14 @@
-import {CardEditsViewModel, CardViewModel} from '@my-money/common';
 import {useEffect} from 'react';
 import {NumberField} from '../../../components';
 import {useWrappingForm} from '../../../hooks';
+import {CardViewModel} from '../../../view-models';
 
 interface EditCardFormContent {
   card?: CardViewModel;
 }
 
 export const EditCardFormContent = ({card}: EditCardFormContent) => {
-  const {reset} = useWrappingForm<CardEditsViewModel>();
+  const {reset} = useWrappingForm<CardViewModel>();
 
   useEffect(() => {
     reset(card);

@@ -1,11 +1,12 @@
-import {BaseViewModel} from './base';
+import {BaseViewModel} from './base-view-model';
 
 export interface AccountViewModel extends BaseViewModel {
   name: string;
   balance: number;
-  updatedAt: Date;
+  createdAt: Date;
 }
 
 export interface NewAccountViewModel {
   name: string;
+  balance?: number;
 }

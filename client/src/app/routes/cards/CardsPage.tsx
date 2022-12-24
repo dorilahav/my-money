@@ -1,8 +1,7 @@
-import {Id} from '@my-money/common';
 import {useMemo, useState} from 'react';
 import {useAllAccounts, useAllCards, useCreateCard, useEditCard} from '../../api';
 import {useToggle} from '../../hooks';
-
+import {Id} from '../../view-models';
 import {CardGrid} from './card-grid';
 import {CreateCardDialog} from './create-card-dialog';
 import {EditCardDialog} from './edit-card-dialog';

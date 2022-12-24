@@ -1,11 +1,6 @@
-import { AccountViewModel, Id, NewAccountViewModel } from '@my-money/common';
-
-import { Models, supabase } from '../supabase-client';
-
-const convertToViewModel = ({createdAt, ...model}: Models['accounts']): AccountViewModel => ({
-  updatedAt: new Date(createdAt),
-  ...model
-});
+import {Id, NewAccountViewModel} from '../../view-models';
+import {supabase} from '../supabase-client';
+import {convertToNewSupabaseModel, convertToViewModel} from './account-converter';
 
 export const getAll = async () => {
   const response = await supabase.from('accounts').select();
@@ -15,9 +10,11 @@ export const getAll = async () => {
 };
 
 export const create = async (newAccount: NewAccountViewModel) => {
-  await supabase.from('accounts').insert(newAccount);
-}
+  const newSupabaseAccount = convertToNewSupabaseModel(newAccount);
+
+  await supabase.from('accounts').insert(newSupabaseAccount);
+};
 
 export const deleteById = async (id: Id) => {
   await supabase.from('accounts').delete().eq('id', id);
-}
+};

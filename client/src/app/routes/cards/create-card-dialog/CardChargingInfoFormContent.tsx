@@ -1,8 +1,8 @@
 import {Grid} from '@mui/material';
-import {CardType, NewCardViewModel} from '@my-money/common';
 import {useLayoutEffect, useRef} from 'react';
 import {NumberField, SelectField} from '../../../components';
 import {useWrappingForm} from '../../../hooks';
+import {CardType, NewCardViewModel} from '../../../view-models';
 
 const cardTypeOptions = [
   {

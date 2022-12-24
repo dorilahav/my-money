@@ -1,7 +1,7 @@
-import { CardEditsViewModel, CardViewModel, Id } from '@my-money/common';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useInvalidateQueriesOnSuccess } from '../common';
-import { create, deleteById, editCard, getAll } from './cards-api';
+import {useMutation, useQuery} from '@tanstack/react-query';
+import {CardViewModel, Id} from '../../view-models';
+import {useInvalidateQueriesOnSuccess} from '../common';
+import {create, deleteById, editCard, getAll} from './cards-api';
 
 export const useAllCards = () => useQuery<CardViewModel[], Error>(['cards'], getAll);
 
@@ -20,5 +20,5 @@ export const useDeleteCardById = (id: Id) => {
 export const useEditCard = (id?: Id) => {
   const onSuccess = useInvalidateQueriesOnSuccess(['cards']);
 
-  return useMutation(['cards', 'edit'], id ? (cardEdits: CardEditsViewModel) => editCard(id, cardEdits) : undefined, {onSuccess});
+  return useMutation(['cards', 'edit'], id ? (card: CardViewModel) => editCard(id, card) : undefined, {onSuccess});
 };
