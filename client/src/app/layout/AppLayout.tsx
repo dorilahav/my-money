@@ -10,7 +10,7 @@ export const AppLayout = ({children}: AppLayoutProps) => (
   <Box display="flex" flexDirection="row" height="100vh" width="100vw">
     <Router>
       <AppNavbar />
-      <Box display="flex" flexDirection="column" flex={1}>
+      <Box display="flex" flexDirection="column" flex={1} sx={{overflowY: 'auto'}}>
         <AppToolbar/>
         <Box sx={{p: 4}}>{children}</Box>
       </Box>
