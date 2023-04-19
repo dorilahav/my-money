@@ -1,4 +1,4 @@
-import {IconButton as MaterialIconButton, IconButtonProps as MaterialIconButtonProps, SxProps, Theme} from '@mui/material';
+import {IconButton as MuiIconButton, IconButtonProps as MaterialIconButtonProps, SxProps, Theme} from '@mui/material';
 import {forwardRef} from 'react';
 import {IconType} from 'react-icons';
 
@@ -11,7 +11,7 @@ interface IconButtonProps {
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(({icon: Icon, sx = {}, ...props}, ref) => (
-  <MaterialIconButton disableRipple sx={{p: 1.5, ...sx}} {...props} ref={ref}>
+  <MuiIconButton disableRipple sx={{p: 1.5, ...sx}} {...props} ref={ref}>
     <Icon />
-  </MaterialIconButton>
+  </MuiIconButton>
 ));

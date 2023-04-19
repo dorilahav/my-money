@@ -2,7 +2,7 @@ import {Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
 import {Form, FormSubmitButton} from '../../../components';
 import {useForm} from '../../../hooks';
 import {newCardValidationSchema} from '../../../validation-schemas';
-import {AccountViewModel, CardType, NewCardViewModel} from '../../../view-models';
+import {AccountViewModel, CardType, NewCardViewModel, Id} from '../../../view-models';
 import {CreateCardFormContent} from './CreateCardFormContent';
 
 interface CreateCardDialogProps {
