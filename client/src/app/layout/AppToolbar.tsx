@@ -12,11 +12,11 @@ export const AppToolbar = () => {
           <Box display="flex" gap={6}>
             <Box display="flex" gap={1}>
               <Title>קרדיט:</Title>
-              <AmountTypography variant="title" amount={1176} positiveIsError />
+              <AmountTypography variant="title" amount={3500} positiveIsError />
             </Box>
             <Box display="flex" gap={1}>
               <Title>שווי:</Title>
-              <AmountTypography variant="title" amount={1176} />
+              <AmountTypography variant="title" amount={5000} />
             </Box>
           </Box>
         </Box>

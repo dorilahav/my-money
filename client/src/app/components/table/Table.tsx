@@ -1,20 +1,21 @@
-import {useState, MouseEvent, ChangeEvent, ReactNode} from 'react';
 import {
   Box,
-  Paper,
-  TableCell as MuiTableCell,
-  TableRow as MuiTableRow,
-  TableContainer as MuiTableContainer,
   Table as MuiTable,
   TableBody as MuiTableBody,
+  TableCell as MuiTableCell,
+  TableContainer as MuiTableContainer,
   TablePagination as MuiTablePagination,
-  SxProps, Theme
+  TableRow as MuiTableRow,
+  Paper,
+  SxProps,
+  Theme
 } from '@mui/material';
-import TableToolbar from './table-toolbar';
-import TableHead, {HeadCell, Order} from './table-head';
+import {ChangeEvent, MouseEvent, ReactNode, useState} from 'react';
 import {BaseViewModel} from '../../view-models';
-import {getComparator} from './utils';
 import styles from './styles';
+import TableHead, {HeadCell, Order} from './table-head';
+import TableToolbar from './table-toolbar';
+import {getComparator} from './utils';
 
 interface TableProps<T extends BaseViewModel> {
   items: T[];
@@ -22,21 +23,21 @@ interface TableProps<T extends BaseViewModel> {
   title?: string;
   defaultSort: keyof T;
   rowDescriptor: {
-    rowTitle: ((item: T) => string | number);
+    rowTitle: (item: T) => string | number;
     columns: ((item: T) => string | number | ReactNode)[];
-    prefixStyle?: ((item: T) => SxProps<Theme>);
-  },
-  pagerSettings: {
+    prefixStyle?: (item: T) => SxProps<Theme>;
+  };
+  pagerSettings?: {
     defaultItemsPerPageAmount: number;
-    itemsPerPageOptions: [number, number, number]
-  }
+    itemsPerPageOptions: [number, number, number];
+  };
 }
 
 const Table = <T extends BaseViewModel>({items, headCells, title, defaultSort, rowDescriptor, pagerSettings}: TableProps<T>) => {
-  const [order, setOrder] = useState<Order>('asc');
+  const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof T>(defaultSort);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(pagerSettings.defaultItemsPerPageAmount);
+  const [rowsPerPage, setRowsPerPage] = useState(pagerSettings?.defaultItemsPerPageAmount ?? 10);
 
   const handleRequestSort = (event: MouseEvent<unknown>, property: keyof T) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -59,54 +60,56 @@ const Table = <T extends BaseViewModel>({items, headCells, title, defaultSort, r
   return (
     <Box sx={styles.container}>
       <Paper sx={styles.paper}>
-        <TableToolbar title={title}/>
+        <TableToolbar title={title} />
         <MuiTableContainer>
           <MuiTable sx={styles.table} aria-labelledby="tableTitle">
             <TableHead headCells={headCells} order={order} orderBy={orderBy} onRequestSort={handleRequestSort} rowCount={items.length} />
             <MuiTableBody>
               {
                 // @ts-ignore
-                items.sort(getComparator(order, orderBy)).slice()
+                items
+                  .sort(getComparator(order, orderBy))
+                  .slice()
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map(item=> {
+                  .map(item => {
                     const labelId = `table-checkbox-${item.id}`;
 
                     return (
                       <MuiTableRow component={Paper} tabIndex={-1} key={item.id} sx={styles.row}>
-                        <MuiTableCell padding="checkbox" sx={{...styles.cell, ...(rowDescriptor.prefixStyle?.(item) ?? {})}}>
-                        </MuiTableCell>
+                        <MuiTableCell padding="checkbox" sx={{...styles.cell, ...(rowDescriptor.prefixStyle?.(item) ?? {})}}></MuiTableCell>
                         <MuiTableCell component="th" id={labelId} scope="row" padding="none" sx={styles.cell}>
                           {rowDescriptor.rowTitle(item)}
                         </MuiTableCell>
-                        {
-                          rowDescriptor.columns.map(x => (
-                            <MuiTableCell key={item.id} sx={styles.cell}>
-                              {x(item)}
-                            </MuiTableCell>
-                          ))
-                        }
+                        {rowDescriptor.columns.map(x => (
+                          <MuiTableCell key={item.id} sx={styles.cell}>
+                            {x(item)}
+                          </MuiTableCell>
+                        ))}
                       </MuiTableRow>
                     );
-                  })}
-              {
-                emptyRows > 0 &&
+                  })
+              }
+              {emptyRows > 0 && (
                 <MuiTableRow>
                   <MuiTableCell colSpan={6} />
                 </MuiTableRow>
-              }
+              )}
             </MuiTableBody>
           </MuiTable>
         </MuiTableContainer>
-        <MuiTablePagination
-          sx={styles.pagination}
-          labelRowsPerPage="מספר שורות בעמוד"
-          labelDisplayedRows={({from, to, count, page}) => `עמוד ${page+1}, ${from}-${to}`}
-          rowsPerPageOptions={pagerSettings.itemsPerPageOptions}
-          count={items.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage} />
+        {pagerSettings && (
+          <MuiTablePagination
+            sx={styles.pagination}
+            labelRowsPerPage="מספר שורות בעמוד"
+            labelDisplayedRows={({from, to, count, page}) => `עמוד ${page + 1}, ${from}-${to}`}
+            rowsPerPageOptions={pagerSettings.itemsPerPageOptions}
+            count={items.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
       </Paper>
     </Box>
   );

@@ -1,17 +1,20 @@
 import {Box, Grid, Paper, useTheme} from '@mui/material';
 import {useMemo} from 'react';
 import {Bar, BarChart, CartesianGrid, Cell, Tooltip, XAxis, YAxis} from 'recharts';
-import {BarChartAmountTooltip, Title} from '../../components';
+import {useAllTransactions} from '../../api';
+import {BarChartAmountTooltip, HeadCell, Title} from '../../components';
+import Table from '../../components/table/Table';
 import {useElementDimensions} from '../../hooks';
+import {TransactionType, TransactionViewModel} from '../../view-models';
 
 const expenses = [
-  {category: 'אוכל', amount: 1000},
-  {category: 'רכב', amount: 1500},
-  {category: 'רפואה', amount: 200},
-  {category: 'אלקטרוניקה', amount: 500},
-  {category: 'מיסים', amount: 800},
-  {category: 'ביגוד', amount: 100},
-  {category: 'מתנות', amount: 300},
+  {category: 'אוכל', amount: 0},
+  {category: 'רכב', amount: 0},
+  {category: 'רפואה', amount: 0},
+  {category: 'אלקטרוניקה', amount: 3000},
+  {category: 'מיסים', amount: 500},
+  {category: 'ביגוד', amount: 0},
+  {category: 'מתנות', amount: 0},
   {category: 'בית', amount: 0},
   {category: 'אחר', amount: 0}
 ];
@@ -85,7 +88,53 @@ const MonthlySummaryGraph = ({height, width, totalIncome, totalExpenses}: Monthl
   );
 };
 
-export const DashboardPage = () => {
+const headCells: HeadCell<TransactionViewModel>[] = [
+  {
+    id: 'otherParty',
+    disablePadding: true,
+    label: 'שם'
+  },
+  {
+    id: 'dateOfTransaction',
+    disablePadding: false,
+    label: 'תאריך'
+  },
+  {
+    id: 'sum',
+    disablePadding: false,
+    label: 'סכום'
+  }
+];
+
+const LastTransactions = () => {
+  const {data, isLoading} = useAllTransactions();
+
+  if (isLoading) {
+    return null;
+  }
+
+  const lastTransactions = (data as TransactionViewModel[]).sort((a, b) => b.dateOfTransaction.getTime() - a.dateOfTransaction.getTime()).slice(0, 4);
+
+  return (
+    <Table
+      items={lastTransactions}
+      headCells={headCells}
+      defaultSort="dateOfTransaction"
+      rowDescriptor={{
+        rowTitle: x => x.otherParty,
+        columns: [x => x.dateOfTransaction.toLocaleDateString(), x => x.sum],
+        prefixStyle: item => ({
+          borderRadius: '5%',
+          width: 20,
+          opacity: 0.4,
+          backgroundColor: item.type === TransactionType.Expense ? '#BC0000' : '#72BE00'
+        })
+      }}
+    />
+  );
+};
+
+export const DashboardPage = ({month}: {month: string}) => {
   const {ref: expensesSummaryGraphContainerRef, dimensions: expensesSummaryGraphDimensions} = useElementDimensions();
   const {ref: monthlySummaryGraphContainerRef, dimensions: monthlySummaryGraphDimensions} = useElementDimensions();
 
@@ -93,7 +142,7 @@ export const DashboardPage = () => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Box component={Paper} display="flex" flexDirection="column" width="100%" height={392} p={2}>
-          <Title pb={2}>חודש פברואר - לפי תגיות</Title>
+          <Title pb={2}>חודש {month} - לפי תגיות</Title>
           <Box flex={1} ref={expensesSummaryGraphContainerRef}>
             {expensesSummaryGraphDimensions && <ExpensesSummaryGraph expensesSummaries={expenses} {...expensesSummaryGraphDimensions} />}
           </Box>
@@ -101,9 +150,17 @@ export const DashboardPage = () => {
       </Grid>
       <Grid item xs={12} lg={6}>
         <Box component={Paper} display="flex" flexDirection="column" width="100%" height={392} p={2}>
-          <Title pb={2}>חודש פברואר - סיכום</Title>
+          <Title pb={2}>חודש {month} - סיכום</Title>
           <Box flex={1} ref={monthlySummaryGraphContainerRef}>
-            {monthlySummaryGraphDimensions && <MonthlySummaryGraph totalIncome={8000} totalExpenses={50} {...monthlySummaryGraphDimensions} />}
+            {monthlySummaryGraphDimensions && <MonthlySummaryGraph totalIncome={8500} totalExpenses={3500} {...monthlySummaryGraphDimensions} />}
+          </Box>
+        </Box>
+      </Grid>
+      <Grid item xs={12} lg={6}>
+        <Box component={Paper} display="flex" flexDirection="column" width="100%" height={392} p={2}>
+          <Title pb={2}>העברות אחרונות</Title>
+          <Box flex={1}>
+            <LastTransactions />
           </Box>
         </Box>
       </Grid>
