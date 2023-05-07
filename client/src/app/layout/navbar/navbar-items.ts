@@ -1,5 +1,5 @@
 import {IconType} from 'react-icons';
-import {FaChartBar, FaCreditCard, FaHandHoldingUsd, FaMoneyCheckAlt, FaShekelSign, FaTable} from 'react-icons/fa';
+import {FaCreditCard, FaHandHoldingUsd, FaMoneyCheckAlt, FaShekelSign, FaTable} from 'react-icons/fa';
 
 export interface NavbarItem {
   label: string;
@@ -22,11 +22,6 @@ const items: NavbarItem[] = [
     label: 'חובות',
     icon: FaHandHoldingUsd,
     path: '/debts'
-  },
-  {
-    label: 'סטטיסטיקות',
-    icon: FaChartBar,
-    path: '/statistics'
   },
   {
     label: 'חשבונות',
