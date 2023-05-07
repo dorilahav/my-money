@@ -6,6 +6,7 @@ interface AuthProviderProps extends PropsWithChildren {}
 
 interface AuthContextValue {
   isLoggedIn: boolean;
+  user?: User;
   login: (email: string) => Promise<void>;
 }
 
@@ -34,7 +35,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     return <LinearProgress />;
   }
 
-  return <AuthContext.Provider value={{isLoggedIn, login}}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{isLoggedIn, login, user}}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

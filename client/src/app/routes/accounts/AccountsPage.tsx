@@ -19,7 +19,7 @@ export const AccountsPage = () => {
   return (
     <>
       <AccountGrid accounts={accounts} onCreateClick={openCreateAccountDialog} />
-      <CreateAccountDialog isOpen={isCreateAccountDialogOpen} onClose={closeCreateAccountDialog} onCreate={createAccount} />
+      <CreateAccountDialog isOpen={isCreateAccountDialogOpen} onClose={closeCreateAccountDialog} onCreate={createAccount as any} />
     </>
   );
 };

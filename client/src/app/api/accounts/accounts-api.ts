@@ -9,8 +9,8 @@ export const getAll = async () => {
   return accounts.map(convertToViewModel);
 };
 
-export const create = async (newAccount: NewAccountViewModel) => {
-  const newSupabaseAccount = convertToNewSupabaseModel(newAccount);
+export const create = async (newAccount: NewAccountViewModel, userId: string) => {
+  const newSupabaseAccount = convertToNewSupabaseModel(newAccount, userId);
 
   await supabase.from('accounts').insert(newSupabaseAccount);
 };

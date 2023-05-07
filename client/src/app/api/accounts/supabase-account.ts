@@ -3,9 +3,11 @@ export interface SupabaseAccount {
   createdAt: string;
   balance: number;
   name: string;
+  user: string;
 }
 
 export interface NewSupabaseAccount {
   name: string;
   balance?: number;
+  user: string;
 }
