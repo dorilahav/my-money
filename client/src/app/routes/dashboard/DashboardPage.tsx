@@ -3,7 +3,7 @@ import {useCurrentMonthTransactions} from '../../api';
 import {Title} from '../../components';
 import {useElementDimensions} from '../../hooks';
 import {sum} from '../../utils';
-import {TransactionType, TransactionViewModel} from '../../view-models';
+import {TransactionCategoryResource, TransactionType, TransactionViewModel} from '../../view-models';
 import {ExpensesSummary, ExpensesSummaryGraph} from './ExpensesSummaryGraph';
 import {LastTransactionsTable} from './LastTransactionsTable';
 import {MonthlySummaryGraph} from './MonthlySummaryGraph';
@@ -22,11 +22,10 @@ const calculateDashboardDataFromTransactions = (transactions: TransactionViewMod
   return {
     expensesSummaries: Object.values(
       expenses.reduce<Record<string, ExpensesSummary>>((summaries, expense) => {
-        // TODO: Change to use category
-        if (!summaries[expense.type]) {
-          summaries[expense.type] = {amount: expense.sum, category: expense.type.toString()};
+        if (!summaries[expense.category]) {
+          summaries[expense.category] = {amount: expense.sum, category: TransactionCategoryResource[expense.category]};
         } else {
-          summaries[expense.type].amount += expense.sum;
+          summaries[expense.category].amount += expense.sum;
         }
         return summaries;
       }, {})
