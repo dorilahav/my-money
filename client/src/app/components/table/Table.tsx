@@ -80,8 +80,8 @@ const Table = <T extends BaseViewModel>({items, headCells, title, defaultSort, r
                         <MuiTableCell component="th" id={labelId} scope="row" padding="none" sx={styles.cell}>
                           {rowDescriptor.rowTitle(item)}
                         </MuiTableCell>
-                        {rowDescriptor.columns.map(x => (
-                          <MuiTableCell key={item.id} sx={styles.cell}>
+                        {rowDescriptor.columns.map((x, columnIndex) => (
+                          <MuiTableCell key={`${item.id} - ${columnIndex}`} sx={styles.cell}>
                             {x(item)}
                           </MuiTableCell>
                         ))}
