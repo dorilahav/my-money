@@ -44,7 +44,7 @@ export const AccountCard = ({entity}: EntityComponentProps<AccountViewModel>) =>
   const {ref: graphContainerRef, dimensions: graphDimensions} = useElementDimensions();
   const {data: transactions} = useAccountsPageTransactions();
 
-  const flows = useMemo(() => getMonthFlows(getLastMonths(), transactions ?? []), [transactions]);
+  const flows = useMemo(() => getMonthFlows(getLastMonths(), transactions?.filter(x => x.account.id === id) ?? []), [transactions]);
 
   return (
     <EntityCard>
