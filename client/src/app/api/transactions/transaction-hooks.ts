@@ -13,10 +13,10 @@ export const useCreateTransaction = () => {
   return useMutation(['transactions', 'create'], create, {onSuccess});
 };
 
-export const useDeleteTransactionById = (id: Id) => {
+export const useDeleteTransactionById = () => {
   const onSuccess = useInvalidateQueriesOnSuccess(['transactions']);
 
-  return useMutation(['transactions', 'delete'], () => deleteById(id), {onSuccess});
+  return useMutation(['transactions', 'delete'], (id: Id) => deleteById(id), {onSuccess});
 };
 
 export const useEditTransaction = (id?: Id) => {

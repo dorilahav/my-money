@@ -1,9 +1,12 @@
-import {IconButton, IconButtonProps} from '@mui/material';
+import {IconButton, IconButtonProps, Tooltip} from '@mui/material';
 import {AiOutlinePlus} from 'react-icons/ai';
 
-export const PlusButton = (props: IconButtonProps) => {
+interface PlusButtonProps extends IconButtonProps {
+  tooltip?: string;
+}
 
-  return (
+export const PlusButton = (props: PlusButtonProps) => (
+  <Tooltip title={props.tooltip ?? ''}>
     <IconButton sx={{
       position: 'fixed',
       bottom: 15,
@@ -13,7 +16,7 @@ export const PlusButton = (props: IconButtonProps) => {
       },
       backgroundColor: theme => theme.palette.primary.main
     }} {...props}>
-      <AiOutlinePlus color='white'/>
+      <AiOutlinePlus color='white' />
     </IconButton>
-  )
-};
+  </Tooltip>
+);

@@ -5,6 +5,7 @@ import {Id} from '../../view-models';
 import {CardGrid} from './card-grid';
 import {CreateCardDialog} from './create-card-dialog';
 import {EditCardDialog} from './edit-card-dialog';
+import {CircularProgress} from '@mui/material';
 
 export const CardsPage = () => {
   const [isCreateCardDialogOpen, openCreateCardDialog, closeCreateCardDialog] = useToggle();
@@ -17,7 +18,7 @@ export const CardsPage = () => {
   const editedCard = useMemo(() => (editedCardId && cards ? cards.find(x => x.id === editedCardId) : undefined), [editedCardId, cards]);
 
   if (isLoadingAccounts || isLoadingCards) {
-    return <div>טוען...</div>;
+    return <CircularProgress size={100} sx={{opacity: 0.2}}/>;
   }
 
   if (errorInCards || errorInAccounts) {

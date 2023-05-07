@@ -18,5 +18,5 @@ export const convertToNewSupabaseModel = ({
   ...transaction,
   details: details ?? null,
   dateOfTransaction: dateOfTransaction.toISOString(),
-  account: account.id
+  account: account as any
 });

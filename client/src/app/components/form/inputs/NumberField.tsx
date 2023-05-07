@@ -15,7 +15,7 @@ export function NumberField<T extends FieldValues>({name, helperText, min, max, 
   } = useController({name, rules: {min, max}, defaultValue: (min ?? 0) as any});
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseInt(event.target.value);
+    const newValue = parseFloat(event.target.value);
 
     onChange(isNaN(newValue) ? 0 : newValue);
   };

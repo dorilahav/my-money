@@ -44,14 +44,20 @@ type AmountTypographyProps = CaptionAmountTypographyProps | TextAmountTypography
 
 export const AmountTypography = ({variant = 'text', amount, positiveIsError, ...props}: AmountTypographyProps) => {
   const Component = variantToComponentMap[variant];
-  const amountText = amount.toLocaleString();
+  let amountText = amount.toLocaleString();
+
   const amountState: AmountState = amount < 0 ? 'negative' : amount > 0 ? 'positive' : 'zero';
+
+  if (amountState === 'negative') {
+    amountText = `${Math.abs(amount).toLocaleString()}-`;
+  }
+
   const colors = positiveIsError ? positiveIsErrorColors : positiveIsSuccessColors;
   const color = colors[amountState];
 
   return (
     <Component {...props} color={color}>
-      ₪{amountText}
+      {`₪ ${amountText} `}
     </Component>
   );
 };

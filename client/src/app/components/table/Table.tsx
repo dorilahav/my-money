@@ -8,10 +8,12 @@ import {
   TableRow as MuiTableRow,
   Paper,
   SxProps,
-  Theme
+  Theme,
+  IconButton
 } from '@mui/material';
+import {FaTrash} from 'react-icons/fa';
 import {ChangeEvent, MouseEvent, ReactNode, useState} from 'react';
-import {BaseViewModel} from '../../view-models';
+import {BaseViewModel, Id} from '../../view-models';
 import styles from './styles';
 import TableHead, {HeadCell, Order} from './table-head';
 import TableToolbar from './table-toolbar';
@@ -31,9 +33,18 @@ interface TableProps<T extends BaseViewModel> {
     defaultItemsPerPageAmount: number;
     itemsPerPageOptions: [number, number, number];
   };
+  deleteAction?: (id: Id) => void;
 }
 
-const Table = <T extends BaseViewModel>({items, headCells, title, defaultSort, rowDescriptor, pagerSettings}: TableProps<T>) => {
+const Table = <T extends BaseViewModel>({
+                                          items,
+                                          headCells,
+                                          title,
+                                          defaultSort,
+                                          rowDescriptor,
+                                          pagerSettings,
+                                          deleteAction
+                                        }: TableProps<T>) => {
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof T>(defaultSort);
   const [page, setPage] = useState(0);
@@ -62,12 +73,13 @@ const Table = <T extends BaseViewModel>({items, headCells, title, defaultSort, r
       <Paper sx={styles.paper}>
         <TableToolbar title={title} />
         <MuiTableContainer>
-          <MuiTable sx={styles.table} aria-labelledby="tableTitle">
-            <TableHead headCells={headCells} order={order} orderBy={orderBy} onRequestSort={handleRequestSort} rowCount={items.length} />
+          <MuiTable sx={styles.table} aria-labelledby='tableTitle'>
+            <TableHead headCells={headCells} order={order} orderBy={orderBy} onRequestSort={handleRequestSort}
+                       rowCount={items.length} />
             <MuiTableBody>
               {
-                // @ts-ignore
                 items
+                  // @ts-ignore
                   .sort(getComparator(order, orderBy))
                   .slice()
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -76,15 +88,26 @@ const Table = <T extends BaseViewModel>({items, headCells, title, defaultSort, r
 
                     return (
                       <MuiTableRow component={Paper} tabIndex={-1} key={item.id} sx={styles.row}>
-                        <MuiTableCell padding="checkbox" sx={{...styles.cell, ...(rowDescriptor.prefixStyle?.(item) ?? {})}}></MuiTableCell>
-                        <MuiTableCell component="th" id={labelId} scope="row" padding="none" sx={styles.cell}>
+                        <MuiTableCell padding='checkbox'
+                                      sx={{...styles.cell, ...(rowDescriptor.prefixStyle?.(item) ?? {})}}></MuiTableCell>
+                        <MuiTableCell component='th' id={labelId} scope='row' padding='none' sx={styles.cell}>
                           {rowDescriptor.rowTitle(item)}
                         </MuiTableCell>
-                        {rowDescriptor.columns.map((x, columnIndex) => (
-                          <MuiTableCell key={`${item.id} - ${columnIndex}`} sx={styles.cell}>
-                            {x(item)}
+                        {
+                          rowDescriptor.columns.map((x, columnIndex) => (
+                            <MuiTableCell key={`${item.id} - ${columnIndex}`} sx={styles.cell}>
+                              {x(item)}
+                            </MuiTableCell>
+                          ))
+                        }
+                        {
+                          !!deleteAction &&
+                          <MuiTableCell sx={styles.cell}>
+                            <IconButton onClick={() => deleteAction(item.id)}>
+                              <FaTrash/>
+                            </IconButton>
                           </MuiTableCell>
-                        ))}
+                        }
                       </MuiTableRow>
                     );
                   })
@@ -100,7 +123,7 @@ const Table = <T extends BaseViewModel>({items, headCells, title, defaultSort, r
         {pagerSettings && (
           <MuiTablePagination
             sx={styles.pagination}
-            labelRowsPerPage="מספר שורות בעמוד"
+            labelRowsPerPage='מספר שורות בעמוד'
             labelDisplayedRows={({from, to, count, page}) => `עמוד ${page + 1}, ${from}-${to}`}
             rowsPerPageOptions={pagerSettings.itemsPerPageOptions}
             count={items.length}

@@ -15,6 +15,7 @@ interface CreateCardDialogProps {
 const getCardDefaultValues = (accounts: AccountViewModel[]): Partial<NewCardViewModel> => ({
   type: CardType.Credit,
   chargingDate: 2,
+// @ts-ignore
   linkedAccount: accounts[0]?.id
 });
 

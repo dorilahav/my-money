@@ -2,6 +2,7 @@ import {useAllAccounts, useCreateAccount} from '../../api';
 import {useToggle} from '../../hooks';
 import {AccountGrid} from './account-grid';
 import {CreateAccountDialog} from './create-account-dialog';
+import {CircularProgress} from '@mui/material';
 
 export const AccountsPage = () => {
   const [isCreateAccountDialogOpen, openCreateAccountDialog, closeCreateAccountDialog] = useToggle();
@@ -9,7 +10,7 @@ export const AccountsPage = () => {
   const {mutateAsync: createAccount} = useCreateAccount();
 
   if (isLoadingAccounts) {
-    return <div>טוען...</div>;
+    return <CircularProgress size={100} sx={{opacity: 0.2}}/>;
   }
 
   if (error) {
