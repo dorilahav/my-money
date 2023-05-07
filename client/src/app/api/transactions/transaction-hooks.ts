@@ -4,10 +4,11 @@ import {useInvalidateQueriesOnSuccess} from '../common';
 import {create, deleteById, editTransaction, getAll, getCurrentMonthTransactions} from './transactions-api';
 
 export const useAllTransactions = () => useQuery<TransactionViewModel[], Error>(['transactions'], getAll);
-export const useCurrentMonthTransactions = () => useQuery<TransactionViewModel[], Error>(['current-month-transactions'], getCurrentMonthTransactions);
+export const useCurrentMonthTransactions = () =>
+  useQuery<TransactionViewModel[], Error>(['transactions', 'current-month'], getCurrentMonthTransactions);
 
 export const useCreateTransaction = () => {
-  const onSuccess = useInvalidateQueriesOnSuccess(['transactions'], {exact: true});
+  const onSuccess = useInvalidateQueriesOnSuccess(['transactions']);
 
   return useMutation(['transactions', 'create'], create, {onSuccess});
 };
