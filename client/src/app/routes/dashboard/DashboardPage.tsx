@@ -1,140 +1,61 @@
-import {Box, Grid, Paper, useTheme} from '@mui/material';
-import {useMemo} from 'react';
-import {Bar, BarChart, CartesianGrid, Cell, Tooltip, XAxis, YAxis} from 'recharts';
-import {useAllTransactions} from '../../api';
-import {BarChartAmountTooltip, HeadCell, Title} from '../../components';
-import Table from '../../components/table/Table';
+import {Box, Grid, Paper} from '@mui/material';
+import {Title} from '../../components';
 import {useElementDimensions} from '../../hooks';
+
+import {useCurrentMonthTransactions} from '../../api';
 import {TransactionType, TransactionViewModel} from '../../view-models';
+import {ExpensesSummary, ExpensesSummaryGraph} from './ExpensesSummaryGraph';
+import {LastTransactionsTable} from './LastTransactionsTable';
+import {MonthlySummaryGraph} from './MonthlySummaryGraph';
 
-const expenses = [
-  {category: 'אוכל', amount: 0},
-  {category: 'רכב', amount: 0},
-  {category: 'רפואה', amount: 0},
-  {category: 'אלקטרוניקה', amount: 3000},
-  {category: 'מיסים', amount: 500},
-  {category: 'ביגוד', amount: 0},
-  {category: 'מתנות', amount: 0},
-  {category: 'בית', amount: 0},
-  {category: 'אחר', amount: 0}
-];
-
-interface ExpensesSummary {
-  category: string;
-  amount: number;
-}
-
-interface ExpensesSummaryGraphProps {
-  height: number;
-  width: number;
+interface DashboardData {
   expensesSummaries: ExpensesSummary[];
-}
-
-const ExpensesSummaryGraph = ({expensesSummaries, height, width}: ExpensesSummaryGraphProps) => {
-  const {
-    palette: {
-      error: {main: color}
-    }
-  } = useTheme();
-
-  const sortedExpenses = useMemo(() => [...expensesSummaries].sort((a, b) => b.amount - a.amount), [expensesSummaries]);
-
-  return (
-    <BarChart width={width} height={height} data={sortedExpenses} style={{direction: 'ltr'}}>
-      <Tooltip content={BarChartAmountTooltip} wrapperStyle={{outline: 'none'}} />
-      <YAxis orientation="right" />
-      <CartesianGrid vertical={false} />
-      <Bar dataKey="amount" fill={color} />
-      <XAxis dataKey="category" reversed />
-    </BarChart>
-  );
-};
-
-interface MonthlySummaryGraphProps {
-  height: number;
-  width: number;
   totalIncome: number;
   totalExpenses: number;
+  lastTransactions: TransactionViewModel[];
 }
 
-const MonthlySummaryGraph = ({height, width, totalIncome, totalExpenses}: MonthlySummaryGraphProps) => {
-  const {
-    palette: {
-      error: {main: negativeColor},
-      success: {main: positiveColor}
-    }
-  } = useTheme();
+const sum = <T,>(items: T[], numberGetter: (value: T) => number) => items.reduce((sum, item) => sum + numberGetter(item), 0);
 
-  const profit = totalIncome - totalExpenses;
+const calculateDashboardDataFromTransactions = (transactions: TransactionViewModel[]): DashboardData => {
+  const incomes = transactions.filter(x => x.type === TransactionType.Income);
+  const expenses = transactions.filter(x => x.type === TransactionType.Expense);
 
-  const data = [
-    {label: 'הכנסות', amount: totalIncome, height: totalIncome, color: positiveColor},
-    {label: 'הוצאות', amount: totalExpenses, height: totalExpenses, color: negativeColor},
-    {label: 'תזרים', amount: profit, height: Math.abs(profit), color: profit > 0 ? positiveColor : negativeColor}
-  ];
-
-  return (
-    <BarChart width={width} height={height} data={data} style={{direction: 'ltr'}}>
-      <Tooltip content={BarChartAmountTooltip} wrapperStyle={{outline: 'none'}} />
-      <CartesianGrid vertical={false} />
-      <YAxis orientation="right" />
-      <XAxis dataKey="label" reversed />
-      <Bar dataKey="height" fill={negativeColor}>
-        {data.map(({label, amount, color}) => (
-          <Cell key={label} fill={color} />
-        ))}
-      </Bar>
-    </BarChart>
-  );
+  return {
+    expensesSummaries: Object.values(
+      expenses.reduce<Record<string, ExpensesSummary>>((summaries, expense) => {
+        // TODO: Change to use category
+        if (!summaries[expense.type]) {
+          summaries[expense.type] = {amount: expense.sum, category: expense.type.toString()};
+        } else {
+          summaries[expense.type].amount += expense.sum;
+        }
+        return summaries;
+      }, {})
+    ),
+    totalIncome: sum(incomes, x => x.sum),
+    totalExpenses: sum(expenses, x => x.sum),
+    lastTransactions: [...transactions].sort((a, b) => b.dateOfTransaction.getTime() - a.dateOfTransaction.getTime()).slice(0, 4)
+  };
 };
 
-const headCells: HeadCell<TransactionViewModel>[] = [
-  {
-    id: 'otherParty',
-    disablePadding: true,
-    label: 'שם'
-  },
-  {
-    id: 'dateOfTransaction',
-    disablePadding: false,
-    label: 'תאריך'
-  },
-  {
-    id: 'sum',
-    disablePadding: false,
-    label: 'סכום'
-  }
-];
+const useMonthTransactionsDashboardData = (): DashboardData => {
+  const {isLoading, data: monthTransactions, error} = useCurrentMonthTransactions();
 
-const LastTransactions = () => {
-  const {data, isLoading} = useAllTransactions();
-
-  if (isLoading) {
-    return null;
+  if (isLoading || error) {
+    return {
+      expensesSummaries: [],
+      totalIncome: 0,
+      totalExpenses: 0,
+      lastTransactions: []
+    };
   }
 
-  const lastTransactions = (data as TransactionViewModel[]).sort((a, b) => b.dateOfTransaction.getTime() - a.dateOfTransaction.getTime()).slice(0, 4);
-
-  return (
-    <Table
-      items={lastTransactions}
-      headCells={headCells}
-      defaultSort="dateOfTransaction"
-      rowDescriptor={{
-        rowTitle: x => x.otherParty,
-        columns: [x => x.dateOfTransaction.toLocaleDateString(), x => x.sum],
-        prefixStyle: item => ({
-          borderRadius: '5%',
-          width: 20,
-          opacity: 0.4,
-          backgroundColor: item.type === TransactionType.Expense ? '#BC0000' : '#72BE00'
-        })
-      }}
-    />
-  );
+  return calculateDashboardDataFromTransactions(monthTransactions);
 };
 
 export const DashboardPage = ({month}: {month: string}) => {
+  const {expensesSummaries, totalIncome, totalExpenses, lastTransactions} = useMonthTransactionsDashboardData();
   const {ref: expensesSummaryGraphContainerRef, dimensions: expensesSummaryGraphDimensions} = useElementDimensions();
   const {ref: monthlySummaryGraphContainerRef, dimensions: monthlySummaryGraphDimensions} = useElementDimensions();
 
@@ -144,7 +65,7 @@ export const DashboardPage = ({month}: {month: string}) => {
         <Box component={Paper} display="flex" flexDirection="column" width="100%" height={392} p={2}>
           <Title pb={2}>חודש {month} - לפי תגיות</Title>
           <Box flex={1} ref={expensesSummaryGraphContainerRef}>
-            {expensesSummaryGraphDimensions && <ExpensesSummaryGraph expensesSummaries={expenses} {...expensesSummaryGraphDimensions} />}
+            {expensesSummaryGraphDimensions && <ExpensesSummaryGraph expensesSummaries={expensesSummaries} {...expensesSummaryGraphDimensions} />}
           </Box>
         </Box>
       </Grid>
@@ -152,7 +73,9 @@ export const DashboardPage = ({month}: {month: string}) => {
         <Box component={Paper} display="flex" flexDirection="column" width="100%" height={392} p={2}>
           <Title pb={2}>חודש {month} - סיכום</Title>
           <Box flex={1} ref={monthlySummaryGraphContainerRef}>
-            {monthlySummaryGraphDimensions && <MonthlySummaryGraph totalIncome={8500} totalExpenses={3500} {...monthlySummaryGraphDimensions} />}
+            {monthlySummaryGraphDimensions && (
+              <MonthlySummaryGraph totalIncome={totalIncome} totalExpenses={totalExpenses} {...monthlySummaryGraphDimensions} />
+            )}
           </Box>
         </Box>
       </Grid>
@@ -160,7 +83,7 @@ export const DashboardPage = ({month}: {month: string}) => {
         <Box component={Paper} display="flex" flexDirection="column" width="100%" height={392} p={2}>
           <Title pb={2}>העברות אחרונות</Title>
           <Box flex={1}>
-            <LastTransactions />
+            <LastTransactionsTable lastTransactions={lastTransactions} />
           </Box>
         </Box>
       </Grid>
