@@ -5,7 +5,7 @@ import {useAllTransactions, useDeleteTransactionById} from '../../api/transactio
 import {PlusButton} from '../../components';
 import {useToggle} from '../../hooks';
 import {useAllAccounts, useCreateTransaction} from '../../api';
-import {CreateTransactionDialog} from './create-transaction-dialog/CreateTransactionDialog';
+import {CreateTransactionDialog} from './create-transaction-dialog';
 
 const headCells: HeadCell<TransactionViewModel>[] = [
   {

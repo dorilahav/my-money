@@ -7,8 +7,9 @@ import {transactions} from './transactions';
 import {AuthPage} from './auth';
 import {cards} from './cards';
 import {dashboard} from './dashboard';
+import {debts} from './debts';
 
-const appRoutes = [dashboard, accounts, transactions, cards];
+const appRoutes = [dashboard, accounts, transactions, cards, debts];
 
 const AppRoutes = () => useRoutes(appRoutes);
 

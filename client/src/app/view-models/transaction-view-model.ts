@@ -40,7 +40,7 @@ export interface NewTransactionViewModel {
   type: TransactionType;
   dateOfTransaction: Date;
   sum: number;
-  isBusinessRelated: boolean; //
+  isBusinessRelated: boolean;
   details?: string;
   account: AccountViewModel;
   otherParty: string;

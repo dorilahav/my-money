@@ -15,7 +15,7 @@ export const useAccountById = (id: Id) => useAllAccountsQuery(accounts => accoun
 export const useCreateAccount = () => {
   const {user} = useAuth();
   if (!user) {
-    throw new Error('Cannot create acocunt while not logged in!');
+    throw new Error('Cannot create account while not logged in!');
   }
 
   const onSuccess = useInvalidateQueriesOnSuccess(['accounts'], {exact: true});

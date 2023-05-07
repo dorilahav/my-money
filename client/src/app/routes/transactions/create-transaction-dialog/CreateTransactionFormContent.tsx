@@ -96,7 +96,7 @@ export const CreateTransactionFormContent = ({accounts}: CreateCardFormContentPr
       <Grid item xs={12}>
         <Stack direction='row' spacing={1}>
           <DatePicker label='מתי בוצעה ההעברה?' name='dateOfTransaction' />
-          <NumberField name='sum' fullWidth={false} placeholder='₪00.00' />
+          <NumberField label='סכום' name='sum' fullWidth={false} placeholder='₪00.00' />
         </Stack>
       </Grid>
       <Grid item xs={12}>
