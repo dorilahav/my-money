@@ -9,6 +9,6 @@ export const convertToViewModel = ({linkedAccount, ...model}: SupabaseCard): Car
 
 export const convertToNewSupabaseModel = (card: NewCardViewModel): NewSupabaseCard => ({
   ...card,
-  linkedAccount: card.linkedAccount.id,
+  linkedAccount: card.linkedAccount as any,
   chargingDate: card.type === CardType.Credit ? card.chargingDate : null
 });
