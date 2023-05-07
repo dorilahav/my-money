@@ -1,3 +1,4 @@
+import {getMonthRange} from '../../utils';
 import {Id, NewTransactionViewModel, TransactionViewModel} from '../../view-models';
 import {supabase} from '../supabase-client';
 import {SupabaseTransaction} from './supabase-transaction';
@@ -10,28 +11,35 @@ export const getAll = async () => {
   return transactions.map(convertToViewModel);
 };
 
+export const getAccountsPageTransactions = async () => {
+  const [startDate] = getMonthRange(minusMonths(new Date(), 3));
+  const [, endDate] = getMonthRange(new Date());
+
+  return getTransactionsInDateRange(startDate, endDate);
+};
+
 export const getCurrentMonthTransactions = async () => {
   const [startOfMonth, endOfMonth] = getMonthRange(new Date());
 
+  return getTransactionsInDateRange(startOfMonth, endOfMonth);
+};
+
+const minusMonths = (date: Date, months: number) => {
+  date.setMonth(date.getMonth() - months);
+
+  return date;
+};
+
+const getTransactionsInDateRange = async (start: Date, end: Date) => {
   const response = await supabase
     .from('transactions')
     .select('*, account (*)')
-    .gte('dateOfTransaction', startOfMonth.toDateString())
-    .lte('dateOfTransaction', endOfMonth.toDateString());
+    .gte('dateOfTransaction', start.toDateString())
+    .lte('dateOfTransaction', end.toDateString());
 
   const transactions: SupabaseTransaction[] = response.data ?? [];
 
   return transactions.map(convertToViewModel);
-};
-
-const getMonthRange = (date: Date): [Date, Date] => {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-
-  const startOfMonth = new Date(year, month, 1);
-  const endOfMonth = new Date(year, month + 1, 0);
-
-  return [startOfMonth, endOfMonth];
 };
 
 export const create = async (newTransaction: NewTransactionViewModel) => {
