@@ -1,5 +1,5 @@
 import {EntityGrid} from '../../../components';
-import {CardViewModel, Id} from '../../../view-models';
+import {CardType, CardViewModel, Id} from '../../../view-models';
 import {CardCard} from './CardCard';
 
 interface CardGridProps {
@@ -9,5 +9,11 @@ interface CardGridProps {
 }
 
 export const CardGrid = ({cards, onCreateClick, onEditClick}: CardGridProps) => (
-  <EntityGrid entities={cards} entityComponent={CardCard} onCreateClick={onCreateClick} onEditClick={onEditClick} />
+  <EntityGrid
+    entities={cards}
+    entityComponent={CardCard}
+    onCreateClick={onCreateClick}
+    onEditClick={onEditClick}
+    disableEdit={x => x.type === CardType.Debit}
+  />
 );
