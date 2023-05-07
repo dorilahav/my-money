@@ -1,5 +1,5 @@
 import {Box} from '@mui/material';
-import {useAccountsPageTransactions, useDeleteAccountById} from '../../../api';
+import {useAllTransactions, useDeleteAccountById} from '../../../api';
 import {AccountViewModel, TransactionType, TransactionViewModel} from '../../../view-models';
 
 import {useMemo} from 'react';
@@ -39,18 +39,19 @@ const getMonthFlows = (months: Month[], transactions: TransactionViewModel[]): M
   });
 
 export const AccountCard = ({entity}: EntityComponentProps<AccountViewModel>) => {
-  const {id, name, balance} = entity;
+  const {id, name} = entity;
   const {isLoading: isDeletingAccount, mutateAsync: deleteAccount} = useDeleteAccountById(id);
   const {ref: graphContainerRef, dimensions: graphDimensions} = useElementDimensions();
-  const {data: transactions} = useAccountsPageTransactions();
+  const {data: transactions} = useAllTransactions();
 
-  const flows = useMemo(() => getMonthFlows(getLastMonths(), transactions?.filter(x => x.account.id === id) ?? []), [transactions]);
+  const accountTransactions = useMemo(() => transactions?.filter(x => x.account.id === id) ?? [], [transactions]);
+  const flows = useMemo(() => getMonthFlows(getLastMonths(), accountTransactions), [accountTransactions]);
 
   return (
     <EntityCard>
       <EntityCardHeader
         title={name}
-        value={<AmountTypography variant="text" amount={balance} />}
+        value={<AmountTypography variant="text" amount={sum(accountTransactions, x => (x.type === TransactionType.Expense ? -1 : 1) * x.sum)} />}
         onDeleteClick={deleteAccount}
         disableActions={isDeletingAccount}
       />

@@ -1,11 +1,10 @@
 import {useMutation, useQuery} from '@tanstack/react-query';
 import {Id, TransactionViewModel} from '../../view-models';
 import {useInvalidateQueriesOnSuccess} from '../common';
-import {create, deleteById, editTransaction, getAccountsPageTransactions, getAll, getCurrentMonthTransactions} from './transactions-api';
+import {create, deleteById, editTransaction, getAll, getCurrentMonthTransactions} from './transactions-api';
 
 export const useAllTransactions = () => useQuery<TransactionViewModel[], Error>(['transactions'], getAll);
 export const useCurrentMonthTransactions = () => useQuery<TransactionViewModel[], Error>(['current-month-transactions'], getCurrentMonthTransactions);
-export const useAccountsPageTransactions = () => useQuery<TransactionViewModel[], Error>(['accounts-page-transactions'], getAccountsPageTransactions);
 
 export const useCreateTransaction = () => {
   const onSuccess = useInvalidateQueriesOnSuccess(['transactions'], {exact: true});

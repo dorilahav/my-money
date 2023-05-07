@@ -11,23 +11,10 @@ export const getAll = async () => {
   return transactions.map(convertToViewModel);
 };
 
-export const getAccountsPageTransactions = async () => {
-  const [startDate] = getMonthRange(minusMonths(new Date(), 3));
-  const [, endDate] = getMonthRange(new Date());
-
-  return getTransactionsInDateRange(startDate, endDate);
-};
-
 export const getCurrentMonthTransactions = async () => {
   const [startOfMonth, endOfMonth] = getMonthRange(new Date());
 
   return getTransactionsInDateRange(startOfMonth, endOfMonth);
-};
-
-const minusMonths = (date: Date, months: number) => {
-  date.setMonth(date.getMonth() - months);
-
-  return date;
 };
 
 const getTransactionsInDateRange = async (start: Date, end: Date) => {
