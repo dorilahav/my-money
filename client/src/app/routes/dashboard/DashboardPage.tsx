@@ -1,8 +1,8 @@
 import {Box, Grid, Paper} from '@mui/material';
+import {useCurrentMonthTransactions} from '../../api';
 import {Title} from '../../components';
 import {useElementDimensions} from '../../hooks';
-
-import {useCurrentMonthTransactions} from '../../api';
+import {sum} from '../../utils';
 import {TransactionType, TransactionViewModel} from '../../view-models';
 import {ExpensesSummary, ExpensesSummaryGraph} from './ExpensesSummaryGraph';
 import {LastTransactionsTable} from './LastTransactionsTable';
@@ -14,8 +14,6 @@ interface DashboardData {
   totalExpenses: number;
   lastTransactions: TransactionViewModel[];
 }
-
-const sum = <T,>(items: T[], numberGetter: (value: T) => number) => items.reduce((sum, item) => sum + numberGetter(item), 0);
 
 const calculateDashboardDataFromTransactions = (transactions: TransactionViewModel[]): DashboardData => {
   const incomes = transactions.filter(x => x.type === TransactionType.Income);
