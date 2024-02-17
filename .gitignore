@@ -1,9 +1,11 @@
 # Node packages
-node_modules
+node_modules/
 
 # Output files
-dist
-lib
+dist/
+lib/
+obj/
+bin/
 
 # Env files
 .env
@@ -12,4 +14,6 @@ lib
 .branches
 .temp
 
-.idea
+# IDE files
+.idea/
+.vs/
