@@ -21,7 +21,7 @@ namespace AuthenticationService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers();
             services.AddMongoConnection("mongodb://localhost:27017/my-money-auth-service");
 
             services.AddOptions<JwtConfiguration>().Bind(Configuration.GetSection("Jwt")).ValidateDataAnnotations();
