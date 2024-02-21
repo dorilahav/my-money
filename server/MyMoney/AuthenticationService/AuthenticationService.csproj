@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Communication.Http\Communication.Http.csproj" />
+    <ProjectReference Include="..\Contracts.User\Contracts.User.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\JsonWebToken\Authentication.Core.csproj" />
   </ItemGroup>

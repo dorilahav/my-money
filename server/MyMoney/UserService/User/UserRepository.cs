@@ -1,4 +1,4 @@
-﻿using Caching;
+﻿using Caching.Core;
 using DataAccess.Mongo;
 using MongoDB.Driver;
 using System.Threading.Tasks;
@@ -23,6 +23,18 @@ namespace UserService.User
             return await _cacheClient.GetOrCreate(cacheKey, async () =>
             {
                 var cursor = await _collection.FindAsync(x => x.Email == email);
+
+                return await cursor.FirstOrDefaultAsync();
+            });
+        }
+
+        public async Task<UserModel> GetById(string id)
+        {
+            var cacheKey = $"users/{id}";
+
+            return await _cacheClient.GetOrCreate(cacheKey, async () =>
+            {
+                var cursor = await _collection.FindAsync(x => x.Id == id);
 
                 return await cursor.FirstOrDefaultAsync();
             });

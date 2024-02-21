@@ -27,6 +27,7 @@ namespace UserService
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ServiceOnly", policy => policy.RequireClaim("type", "service"));
+                options.AddPolicy("UserOnly", policy => policy.RequireClaim("type", "user"));
             });
 
             services.AddMongoConnection("mongodb://localhost:27017/my-money-user-service");

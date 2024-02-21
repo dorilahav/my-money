@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using Communication.Http;
+using Contracts.User;
 
 namespace AuthenticationService.Login
 {
@@ -41,9 +43,11 @@ namespace AuthenticationService.Login
                 throw new Exception(response.StatusCode.ToString()); // TODO: Throw internal error.
             }
 
+            var userDetails = await response.Content.ReadFromJsonAsync<GetUserDetailsResponse>();
+
             var code = codeGenerator.Generate();
 
-            await Repository.Create(details.Email, code);
+            await Repository.Create(userDetails.Id, details.Email, code);
 
             // TODO: Send email.
             Console.WriteLine(code);
@@ -54,10 +58,10 @@ namespace AuthenticationService.Login
         [HttpPost("login/verify")]
         public async Task<IActionResult> VerifyLogin(OtpVerifyLoginDetails details, [FromServices] ITokenGenerator tokenGenerator)
         {
-            
-            var codes = await Repository.GetCodesForEmail(details.Email);
 
-            if (!codes.Contains(details.Code))
+            var otpLoginModel = await Repository.GetByEmailAndCode(details.Email, details.Code);
+
+            if (otpLoginModel is null)
             {
                 return BadRequest();
             }
@@ -67,7 +71,7 @@ namespace AuthenticationService.Login
             var tokenClaims = new List<Claim>
             {
                 new Claim("type", "user"),
-                new Claim("email", details.Email)
+                new Claim("id", otpLoginModel.UserId)
             };
 
             var token = tokenGenerator.Generate(tokenClaims);

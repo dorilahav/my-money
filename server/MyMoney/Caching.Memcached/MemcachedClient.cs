@@ -1,6 +1,5 @@
 ﻿using Enyim.Caching;
-using System;
-using System.Threading.Tasks;
+using Caching.Core;
 
 namespace Caching.Memcached
 {

@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Authentication.DependencyInjection\Authentication.DependencyInjection.csproj" />
-    <ProjectReference Include="..\Caching\Caching.csproj" />
+    <ProjectReference Include="..\Caching.Memcached\Caching.Memcached.csproj" />
+    <ProjectReference Include="..\Contracts.User\Contracts.User.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 

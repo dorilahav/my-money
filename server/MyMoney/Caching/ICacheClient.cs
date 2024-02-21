@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Caching
+namespace Caching.Core
 {
     public interface ICacheClient : IDisposable
     {

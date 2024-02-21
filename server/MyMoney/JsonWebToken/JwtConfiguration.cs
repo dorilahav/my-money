@@ -10,7 +10,7 @@ namespace Authentication.Core
         public string Secret
         {
             get => _secret;
-            set => _secret = value.PadRight(32);
+            set => _secret = value.PadRight(32, '0');
         }
 
         [Required]

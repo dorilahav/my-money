@@ -16,24 +16,27 @@ namespace AuthenticationService.Login
             _collection = connection.GetCollection<OtpLoginModel>("otp_logins");
         }
 
-        public Task Create(string email, string code)
+        public Task Create(string userId, string email, string code)
         {
-            return _collection.InsertOneAsync(new OtpLoginModel { Email = email, Code = code });
+            return _collection.InsertOneAsync(new OtpLoginModel { UserId = userId, Email = email, Code = code });
         }
 
-        public async Task<IList<string>> GetCodesForEmail(string email)
+        public async Task<OtpLoginModel> GetByEmailAndCode(string email, string code)
         {
-            var filter = Builders<OtpLoginModel>.Filter.Eq(x => x.Email, email);
+            var filter = Builders<OtpLoginModel>.Filter.And(
+                Builders<OtpLoginModel>.Filter.Eq(x => x.Email, email),
+                Builders<OtpLoginModel>.Filter.Eq(x => x.Code, code)
+            );
+
             var projection = Builders<OtpLoginModel>.Projection.Include(x => x.Code);
-            var options = new FindOptions<OtpLoginModel, BsonDocument>()
+            var options = new FindOptions<OtpLoginModel>()
             {
                 Projection = Builders<OtpLoginModel>.Projection.Include(x => x.Code)
             };
 
             var cursor = await _collection.FindAsync(filter, options);
-            var login = await cursor.ToListAsync();
 
-            return login.Select(x => x["code"].AsString).ToList();
+            return await cursor.FirstOrDefaultAsync();
         }
 
         public async Task Delete(string email, string code)
