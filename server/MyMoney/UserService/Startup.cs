@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Caching.Memcached;
 using Authentication.DependencyInjection;
-using Authentication.Core;
 
 namespace UserService
 {
@@ -21,11 +20,8 @@ namespace UserService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
-
+            services.AddControllers();
             services.AddOptions();
-
-            services.AddOptions<JwtConfiguration>().BindConfiguration("Jwt").ValidateDataAnnotations();
 
             services.AddJwtAuthentication();
             services.AddAuthorization(options =>
