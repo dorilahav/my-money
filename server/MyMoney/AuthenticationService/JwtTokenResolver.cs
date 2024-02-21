@@ -1,10 +1,11 @@
 ﻿using Authentication.Core;
+using Communication.Http;
 using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace AuthenticationService
 {
-    public class JwtServiceTokenProvider : IServiceTokenProvider
+    public class JwtTokenResolver : IAuthorizationTokenResolver
     {
         private string _serviceName;
         private ITokenValidator _tokenValidator;
@@ -12,13 +13,13 @@ namespace AuthenticationService
 
         private string _token;
 
-        public JwtServiceTokenProvider(string serviceName, ITokenValidator tokenValidator, ITokenGenerator tokenGenerator) {
+        public JwtTokenResolver(string serviceName, ITokenValidator tokenValidator, ITokenGenerator tokenGenerator) {
             _serviceName = serviceName;
             _tokenValidator = tokenValidator;
             _tokenGenerator = tokenGenerator;
         }
 
-        public string GetToken()
+        public string Resolve()
         {
             if (!_tokenValidator.IsValid(_token))
             {

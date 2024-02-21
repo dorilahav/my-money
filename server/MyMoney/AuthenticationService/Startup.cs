@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Communication.Http;
 
 namespace AuthenticationService
 {
@@ -27,12 +28,12 @@ namespace AuthenticationService
             services.AddSingleton<ITokenGenerator, JwtGenerator>();
             services.AddSingleton<ITokenValidator, JwtValidator>();
 
-            services.AddSingleton<IServiceTokenProvider>((svc) =>
+            services.AddSingleton<IAuthorizationTokenResolver>((svc) =>
             {
                 var tokenGenerator = svc.GetService<ITokenGenerator>();
                 var tokenValidator = svc.GetService<ITokenValidator>();
 
-                return new JwtServiceTokenProvider("AuthService", tokenValidator, tokenGenerator);
+                return new JwtTokenResolver("AuthService", tokenValidator, tokenGenerator);
             });
 
             services.AddHttpClient<HttpCommunication>();

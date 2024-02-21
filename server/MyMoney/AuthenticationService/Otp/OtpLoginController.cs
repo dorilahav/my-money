@@ -8,6 +8,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using Communication.Http;
 
 namespace AuthenticationService.Login
 {
