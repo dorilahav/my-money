@@ -8,6 +8,7 @@ interface AuthContextValue {
   isLoggedIn: boolean;
   user?: User;
   login: (email: string) => Promise<void>;
+  verifyLogin: (email: string, code: string) => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -22,20 +23,25 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     await auth.loginWithOtp(email);
   };
 
+  const verifyLogin = async (email: string, code: string) => {
+    await auth.verifyOtpLogin(email, code);
+    
+    const user = await auth.getLoggedInUser();
+    setUser(user);
+  };
+
   useEffect(() => {
     auth
       .getLoggedInUser()
       .then(setUser)
       .finally(() => setIsLoading(false));
-
-    return auth.subscribeToUserChanges(setUser);
   }, []);
 
   if (isLoading) {
     return <LinearProgress />;
   }
 
-  return <AuthContext.Provider value={{isLoggedIn, login, user}}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{isLoggedIn, login, verifyLogin, user}}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

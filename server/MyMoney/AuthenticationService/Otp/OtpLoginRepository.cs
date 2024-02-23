@@ -23,18 +23,7 @@ namespace AuthenticationService.Login
 
         public async Task<OtpLoginModel> GetByEmailAndCode(string email, string code)
         {
-            var filter = Builders<OtpLoginModel>.Filter.And(
-                Builders<OtpLoginModel>.Filter.Eq(x => x.Email, email),
-                Builders<OtpLoginModel>.Filter.Eq(x => x.Code, code)
-            );
-
-            var projection = Builders<OtpLoginModel>.Projection.Include(x => x.Code);
-            var options = new FindOptions<OtpLoginModel>()
-            {
-                Projection = Builders<OtpLoginModel>.Projection.Include(x => x.Code)
-            };
-
-            var cursor = await _collection.FindAsync(filter, options);
+            var cursor = await _collection.FindAsync(x => x.Email == email && x.Code == code);
 
             return await cursor.FirstOrDefaultAsync();
         }

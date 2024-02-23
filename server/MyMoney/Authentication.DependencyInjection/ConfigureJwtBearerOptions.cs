@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Authentication.DependencyInjection
 {
@@ -34,6 +35,13 @@ namespace Authentication.DependencyInjection
                 ValidIssuer = _configuration.Issuer,
                 ValidAudience = _configuration.Audience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret))
+            };
+
+            options.Events.OnMessageReceived = context =>
+            {
+                context.Token = context.Request.Cookies["AuthToken"];
+
+                return Task.CompletedTask;
             };
         }
     }

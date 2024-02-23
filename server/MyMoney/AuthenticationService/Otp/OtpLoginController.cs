@@ -47,7 +47,7 @@ namespace AuthenticationService.Login
 
             var code = codeGenerator.Generate();
 
-            await Repository.Create(userDetails.Id, details.Email, code);
+            await Repository.Create(userDetails.Id, userDetails.Email, code);
 
             // TODO: Send email.
             Console.WriteLine(code);
@@ -76,7 +76,12 @@ namespace AuthenticationService.Login
 
             var token = tokenGenerator.Generate(tokenClaims);
 
-            return Ok(new {Token = token});
+            Response.Cookies.Append("AuthToken", token, new Microsoft.AspNetCore.Http.CookieOptions
+            {
+                HttpOnly = true
+            });
+
+            return Ok();
         }
     }
 }

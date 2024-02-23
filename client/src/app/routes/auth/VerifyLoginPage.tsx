@@ -2,36 +2,36 @@ import {Box, Grid} from '@mui/material';
 
 import {Form, LoadingButton, TextField, Title} from '../../components';
 import {useForm} from '../../hooks';
-import {loginValidationSchema} from '../../validation-schemas';
+import {verifyLoginValidationSchema} from '../../validation-schemas';
 
-interface LoginFormValues {
-  email: string;
+interface VerifyLoginFormValues {
+  code: string;
 }
 
-interface LoginPageProps {
-  onLoginSubmit: (email: string) => void;
+interface VerifyLoginPageProps {
+  onVerifyLoginSubmit: (code: string) => void;
 }
 
-export const LoginPage = ({onLoginSubmit}: LoginPageProps) => {
-  const form = useForm<LoginFormValues>(loginValidationSchema);
+export const VerifyLoginPage = ({onVerifyLoginSubmit}: VerifyLoginPageProps) => {
+  const form = useForm<VerifyLoginFormValues>(verifyLoginValidationSchema);
 
-  const login = async ({email}: LoginFormValues) => {
-    await onLoginSubmit(email);
+  const verifyLogin = async ({code}: VerifyLoginFormValues) => {
+    await onVerifyLoginSubmit(code);
   };
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-      <Form form={form} onSubmit={login}>
+      <Form form={form} onSubmit={verifyLogin}>
         <Grid container spacing={2}>
           <Grid item xs={12} sx={{textAlign: 'center'}}>
             <Title>MyMoney</Title>
           </Grid>
           <Grid item xs={12}>
-            <TextField name="email" label="כתובת אימייל" />
+            <TextField name="code" label="קוד" />
           </Grid>
           <Grid item xs={12}>
             <LoadingButton type="submit" variant="contained" loading={form.formState.isSubmitting} fullWidth>
-              שלח קוד
+              התחבר
             </LoadingButton>
           </Grid>
         </Grid>

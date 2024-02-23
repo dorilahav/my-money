@@ -1,18 +1,23 @@
 import {useState} from 'react';
-import {CheckEmailPage} from './CheckEmailPage';
 import {LoginPage} from './LoginPage';
+import {VerifyLoginPage} from './VerifyLoginPage';
 
 interface AuthPageProps {
   onLogin: (email: string) => any;
+  onVerifyLogin: (email: string, code: string) => any;
 }
 
-export const AuthPage = ({onLogin}: AuthPageProps) => {
-  const [isEmailSent, setIsEmailSent] = useState(false);
+export const AuthPage = ({onLogin, onVerifyLogin}: AuthPageProps) => {
+  const [authEmail, setAuthEmail] = useState<string>();
 
   const login = async (email: string) => {
     await onLogin(email);
-    setIsEmailSent(true);
+    setAuthEmail(email);
   };
 
-  return isEmailSent ? <CheckEmailPage /> : <LoginPage onLoginSubmit={login} />;
+  const verifyLogin = async (code: string) => {
+    await onVerifyLogin(authEmail!, code);
+  };
+
+  return !!authEmail ? <VerifyLoginPage onVerifyLoginSubmit={verifyLogin} /> : <LoginPage onLoginSubmit={login} />;
 };
