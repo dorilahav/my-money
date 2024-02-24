@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
 
-namespace Authentication.Core
+namespace Authentication.Core.Jwt
 {
     public class JwtGenerator : ITokenGenerator
     {

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Authentication.Core
+namespace Authentication.Core.Jwt
 {
     public class JwtValidator : ITokenValidator
     {
         private TimeSpan _validityMargin;
 
-        public JwtValidator(TimeSpan? validityMargin = null) {
+        public JwtValidator(TimeSpan? validityMargin = null)
+        {
             _validityMargin = validityMargin ?? TimeSpan.FromSeconds(30);
         }
 
