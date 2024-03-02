@@ -1,8 +1,5 @@
 ﻿using DataAccess.Mongo;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AuthenticationService.Login
@@ -23,7 +20,7 @@ namespace AuthenticationService.Login
 
         public async Task<OtpLoginModel> GetByEmailAndCode(string email, string code)
         {
-            var cursor = await _collection.FindAsync(x => x.Email == email && x.Code == code);
+            var cursor = _collection.Find(x => x.Email == email && x.Code == code);
 
             return await cursor.FirstOrDefaultAsync();
         }

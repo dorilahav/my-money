@@ -22,7 +22,7 @@ namespace UserService.User
 
             return await _cacheClient.GetOrCreate(cacheKey, async () =>
             {
-                var cursor = await _collection.FindAsync(x => x.Email == email);
+                var cursor = _collection.Find(x => x.Email == email);
 
                 return await cursor.FirstOrDefaultAsync();
             });
@@ -34,7 +34,7 @@ namespace UserService.User
 
             return await _cacheClient.GetOrCreate(cacheKey, async () =>
             {
-                var cursor = await _collection.FindAsync(x => x.Id == id);
+                var cursor = _collection.Find(x => x.Id == id);
 
                 return await cursor.FirstOrDefaultAsync();
             });
