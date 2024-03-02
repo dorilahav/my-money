@@ -1,9 +1,11 @@
-﻿using Authentication.Core.Jwt;
+﻿using System;
+using Authentication.Core.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Authentication.DependencyInjection
 {
@@ -37,11 +39,14 @@ namespace Authentication.DependencyInjection
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret))
             };
 
-            options.Events.OnMessageReceived = context =>
+            options.Events = new JwtBearerEvents
             {
-                context.Token = context.Request.Cookies["AuthToken"];
-
-                return Task.CompletedTask;
+                OnMessageReceived = context =>
+                {
+                    context.Token = context.Request.Cookies["AuthToken"];
+                    
+                    return Task.CompletedTask;
+                }
             };
         }
     }

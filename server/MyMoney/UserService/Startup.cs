@@ -23,7 +23,7 @@ namespace UserService
             services.AddControllers();
             services.AddOptions();
 
-            services.AddJwtAuthentication();
+            services.AddJwtClientAuthentication();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ServiceOnly", policy => policy.RequireClaim("type", "service"));

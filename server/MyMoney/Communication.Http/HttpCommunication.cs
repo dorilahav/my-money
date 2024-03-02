@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Authentication.Core;
 
 namespace Communication.Http
 {
@@ -9,7 +10,7 @@ namespace Communication.Http
     {
         public HttpClient Client { get; }
 
-        public HttpCommunication(HttpClient httpClient, IAuthorizationTokenResolver tokenResolver)
+        public HttpCommunication(HttpClient httpClient, IServiceTokenResolver tokenResolver)
         {
             Client = httpClient;
             Client.BaseAddress = new Uri("http://localhost:5000");
